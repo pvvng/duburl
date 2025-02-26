@@ -3,7 +3,7 @@
 import { createActionResult } from "@/lib/create-result-object";
 import db from "@/lib/db";
 import { urlSchema } from "@/lib/zodSchema/url";
-import generateShortKey from "@/util/short-key/generate-short-key";
+import generateShortKey from "@/util/generate-short-key";
 
 export async function convertUrl(_: any, formData: FormData) {
   const data = formData.get("url");
@@ -18,7 +18,7 @@ export async function convertUrl(_: any, formData: FormData) {
   // 이미 축약된 같은 url이 존재한다면 반환
   const urlExist = await db.url.findUnique({
     where: { originalUrl: result.data },
-    select: { id: true, shortKey: true },
+    select: { shortKey: true, originalUrl: true },
   });
 
   if (urlExist) {
@@ -44,7 +44,7 @@ export async function convertUrl(_: any, formData: FormData) {
       shortKey,
       originalUrl: result.data,
     },
-    select: { id: true, shortKey: true },
+    select: { shortKey: true, originalUrl: true },
   });
 
   return createActionResult(true, shortendURLKey, undefined);

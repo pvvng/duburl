@@ -1,5 +1,9 @@
 import ConvertUrlForm from "@/components/convert-url-form";
 
-export default function Home() {
-  return <ConvertUrlForm />;
+export default async function Home() {
+  return (
+    <div>
+      <ConvertUrlForm />
+    </div>
+  );
 }
