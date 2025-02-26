@@ -3,7 +3,7 @@
 import { createActionResult } from "@/lib/create-result-object";
 import db from "@/lib/db";
 import { urlSchema } from "@/lib/zodSchema/url";
-import generateShortKey from "@/util/generate-short-key";
+import generateShortKey from "@/util/short-key/generate-short-key";
 
 export async function convertUrl(_: any, formData: FormData) {
   const data = formData.get("url");
