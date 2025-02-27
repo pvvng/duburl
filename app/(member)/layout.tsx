@@ -6,9 +6,9 @@ export default function MemberLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="bg-neutral-50 min-h-screen">
       <MemeberNavbar />
       {children}
-    </>
+    </div>
   );
 }

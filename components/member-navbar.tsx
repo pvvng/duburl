@@ -8,7 +8,7 @@ import { Suspense } from "react";
 
 export default async function MemeberNavbar() {
   return (
-    <div className="w-full p-5 md:px-16 sm:px-5 flex justify-between items-center gap-2 shadow-md rounded-b-md">
+    <div className="w-full bg-white p-5 xl:px-16 flex justify-between items-center gap-2 shadow-md rounded-b-md">
       <div className="flex gap-8 items-center *:font-bold *:text-md">
         <Link href="/home" className="text-3xl font-anton uppercase">
           we : rl
