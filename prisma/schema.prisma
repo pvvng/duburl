@@ -8,7 +8,13 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
+  avatar     String?
+  email      String?  @unique
+  kakao_id   BigInt?  @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Url {

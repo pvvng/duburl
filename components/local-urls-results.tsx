@@ -43,8 +43,8 @@ export default function LocalURLsResultsBox({
           <p>복사 성공!</p>
         </div>
       )}
-      <div className="border-2 shadow-md border-indigo-500 rounded-md">
-        <div className="border-b-2 border-b-indigo-500 flex flex-col gap-3 p-5">
+      <div className="border-2 shadow-md border-neutral-200 rounded-md">
+        <div className="border-b-2 border-b-neutral-200 flex flex-col gap-3 p-5">
           <p className="font-semibold text-lg">사용 방법</p>
           <p>1. 입력창에 단축하고 싶은 URL을 복사해서 붙여넣습니다.</p>
           <p>2. 단축된 URL을 브라우저 주소창에 붙여넣습니다.</p>
