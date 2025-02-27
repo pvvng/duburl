@@ -6,6 +6,14 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 
+const NavKeys = [
+  { name: "URL 단축", path: "/convert" },
+  { name: "대시보드", path: "/dashboard" },
+  { name: "link1", path: "/" },
+  { name: "link2", path: "/" },
+  { name: "link3", path: "/" },
+];
+
 export default async function MemeberNavbar() {
   return (
     <div className="w-full bg-white p-5 xl:px-16 flex justify-between items-center gap-2 shadow-md rounded-b-md">
@@ -13,18 +21,15 @@ export default async function MemeberNavbar() {
         <Link href="/home" className="text-3xl font-anton uppercase">
           we : rl
         </Link>
-        <Link href="/home" className="text-gray-600">
-          Link
-        </Link>
-        <Link href="/home" className="text-gray-600">
-          Link
-        </Link>
-        <Link href="/home" className="text-gray-600">
-          Link
-        </Link>
-        <Link href="/home" className="text-gray-600">
-          Link
-        </Link>
+        {NavKeys.map(({ name, path }) => (
+          <Link
+            key={name + path}
+            href={path}
+            className="text-gray-600 hover:text-neutral-900 transition-colors"
+          >
+            {name}
+          </Link>
+        ))}
       </div>
       <Suspense fallback={<AvatarLoading />}>
         <UserAvatar />

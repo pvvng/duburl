@@ -40,13 +40,13 @@ export default function ConvertUrlForm() {
   }, [actionResult]);
 
   return (
-    <div className="max-w-screen-sm  mx-auto flex flex-col justify-center gap-6 p-5">
+    <div className="max-w-screen-sm mx-auto flex flex-col justify-center gap-10 p-5">
       <h1 className="text-2xl font-semibold">✂ 긴 URL 짧게 만드는 사이트</h1>
       <form action={action} className="flex flex-col justify-center gap-3">
         <Input
           name="url"
-          type="text"
-          placeholder="단축하고 싶은 URL을 입력하세요."
+          type="url"
+          placeholder="단축할 URL을 입력하세요."
           required
           errors={!actionResult.success ? actionResult.errors : []}
         />

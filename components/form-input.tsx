@@ -14,8 +14,8 @@ export default function Input({
     <div className="flex flex-col gap-2">
       <input
         className="w-full h-10 bg-transparent rounded-md border-none transition shadow-md
-        focus:outline-none ring-2 ring-neutral-200 focus:ring-4 focus:ring-indigo-500 
-        placeholder:text-neutral-400"
+        focus:outline-none ring-2 ring-neutral-200 focus:ring-4 focus:ring-neutral-400 
+        placeholder:text-neutral-400 bg-white"
         name={name}
         {...rest}
         // autoComplete="off"

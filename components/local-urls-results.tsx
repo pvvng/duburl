@@ -37,7 +37,7 @@ export default function LocalURLsResultsBox({
       {messageVisible && (
         <div
           className="fixed bottom-1/2 left-1/2 animate-moveUp font-semibold
-        flex gap-2 bg-indigo-500 text-white p-3 px-5 rounded-md text-center"
+        flex gap-2 bg-green-500 text-white p-3 px-5 rounded-md text-center"
         >
           <InformationCircleIcon className="size-6" />
           <p>복사 성공!</p>
@@ -53,7 +53,7 @@ export default function LocalURLsResultsBox({
           <h2 className="font-semibold text-lg">
             이전 변경 내역 (클릭하여 복사하기)
           </h2>
-          <p className="text-sm text-indigo-500">
+          <p className="text-sm text-neutral-500">
             최근 10개의 변경 내역만 저장됩니다.
           </p>
           {previousURLs.length === 0 && (
@@ -65,7 +65,7 @@ export default function LocalURLsResultsBox({
               className="flex flex-col gap-1 rounded-md bg-neutral-200"
             >
               <div
-                className="hover:text-indigo-500 transition-colors cursor-pointer p-2 px-3 truncate"
+                className="hover:text-green-500 transition-colors cursor-pointer p-2 px-3 truncate"
                 onClick={() => handleCopy(originalUrl)}
               >
                 <span className="font-medium">단축 전: </span>
@@ -73,7 +73,7 @@ export default function LocalURLsResultsBox({
               </div>
               <div className="border-b-2 border-white" />
               <div
-                className="hover:text-indigo-500 transition-colors cursor-pointer p-2 px-3 truncate"
+                className="hover:text-green-500 transition-colors cursor-pointer p-2 px-3 truncate"
                 onClick={() => handleCopy(`${websiteUrl}/${shortKey}`)}
               >
                 <span className="font-medium">단축 후: </span>
