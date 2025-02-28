@@ -1,17 +1,28 @@
 import MemberConvertUrlForm from "@/components/member-convert-url-form";
 import { getCachedUserUrls } from "@/lib/data/user-urls";
 import getSession from "@/lib/session";
+import { LinkIcon, ListBulletIcon } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
+import { UserUrlsLoading } from "./loading";
 
 export default async function ConvertUrl() {
   return (
     <div className="p-5 xl:p-16">
-      <div className="max-w-screen-sm mx-auto flex flex-col justify-center gap-10 p-5">
-        <h1 className="text-2xl font-semibold">✂ 긴 URL 짧게 변환하기</h1>
-        <MemberConvertUrlForm />
-        <Suspense fallback={"loading..."}>
-          <UserUrls />
-        </Suspense>
+      <div className="flex gap-5 p-5">
+        <div className="w-1/3 flex flex-col gap-5">
+          <MemberConvertUrlForm />
+          <div className="white-card">
+            <div className="flex gap-2 items-center text-xl font-semibold ">
+              <ListBulletIcon className="size-6" />
+              <span>다른 URL 둘러보기</span>
+            </div>
+          </div>
+        </div>
+        <div className="w-2/3">
+          <Suspense fallback={<UserUrlsLoading />}>
+            <UserUrls />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
@@ -22,18 +33,20 @@ async function UserUrls() {
   const urls = await getCachedUserUrls(session.id!);
 
   return (
-    <div className="flex flex-col gap-5">
-      <p className="text-xl font-semibold">내 URL</p>
-      <div className="border border-b-neutral-200" />
+    <div className="flex flex-col gap-3 white-card">
+      <div className="text-xl font-semibold flex gap-2 items-center">
+        <LinkIcon className="size-6" />
+        <span>내 URL</span>
+      </div>
       {urls.map((userUrl) => (
         <div
           key={userUrl.urlId}
-          className="*:break-words flex flex-col gap-1 bg-white rounded-md p-5 shadow-md"
+          className="*:break-words flex flex-col gap-1 white-card bg-neutral-50"
         >
           <p>{userUrl.nickname ?? "별명 없음"}</p>
           <p>{userUrl.url.originalUrl}</p>
           <p>{userUrl.url.shortKey}</p>
-          <p>{userUrl.createdAt.toString()}</p>
+          <p>{userUrl.updatedAt.toString()}</p>
         </div>
       ))}
     </div>
