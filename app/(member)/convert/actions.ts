@@ -3,7 +3,7 @@
 import { createActionResult } from "@/lib/create-result-object";
 import db from "@/lib/db";
 import getSession from "@/lib/session";
-import { memberUrlScema } from "@/lib/zodSchema/url";
+import { memberUrlScema, nicknameScehma } from "@/lib/zodSchema/url";
 import generateShortKey from "@/util/generate-short-key";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
@@ -109,4 +109,49 @@ export async function memberConvertUrl(_: any, formData: FormData) {
     success: true,
     result: { ...shortendURLKey, nickname: urlNickname.nickname },
   });
+}
+
+export async function deleteUrl(urlId: number) {
+  const session = await getSession();
+
+  if (!session || !session.id) {
+    return redirect("/");
+  }
+
+  await db.urlNickname.delete({
+    where: {
+      userId_urlId: {
+        userId: session.id,
+        urlId,
+      },
+    },
+  });
+
+  revalidateTag("user-urls");
+}
+
+export async function updateUrl(urlId: number, nickname: string | null) {
+  const session = await getSession();
+
+  if (!session || !session.id) {
+    return redirect("/");
+  }
+
+  const result = nicknameScehma.safeParse(nickname);
+
+  if (!result.success) {
+    return result.error.flatten().formErrors;
+  }
+
+  await db.urlNickname.update({
+    where: {
+      userId_urlId: {
+        userId: session.id,
+        urlId,
+      },
+    },
+    data: { nickname: result.data === "" ? null : result.data },
+  });
+
+  revalidateTag("user-urls");
 }

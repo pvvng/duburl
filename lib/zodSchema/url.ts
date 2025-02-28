@@ -16,14 +16,16 @@ export const urlSchema = z
   .transform(trimUrl)
   .refine((url) => validator.isURL(url), URL_ERROR_MESSAGES.INVALID_URL);
 
+export const nicknameScehma = z
+  .string({
+    required_error: NICKNAME_ERROR_MESSAGES.REQUIRED,
+    invalid_type_error: NICKNAME_ERROR_MESSAGES.INVALID_TYPE,
+  })
+  .trim()
+  .min(0, NICKNAME_ERROR_MESSAGES.MIN_LENGTH(0))
+  .max(20, NICKNAME_ERROR_MESSAGES.MAX_LENGTH(20));
+
 export const memberUrlScema = z.object({
   url: urlSchema,
-  nickname: z
-    .string({
-      required_error: NICKNAME_ERROR_MESSAGES.REQUIRED,
-      invalid_type_error: NICKNAME_ERROR_MESSAGES.INVALID_TYPE,
-    })
-    .trim()
-    .min(0, NICKNAME_ERROR_MESSAGES.MIN_LENGTH(0))
-    .max(20, NICKNAME_ERROR_MESSAGES.MAX_LENGTH(20)),
+  nickname: nicknameScehma,
 });

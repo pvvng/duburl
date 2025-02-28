@@ -1,22 +1,33 @@
 "use client";
 
+import { deleteUrl, updateUrl } from "@/app/(member)/convert/actions";
 import { copyToClipboard } from "@/util/copy-to-clipboard";
 import {
+  DocumentCheckIcon,
   InformationCircleIcon,
   PencilSquareIcon,
   TrashIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
 
 interface Props {
   nickname?: string | null;
+  urlId?: number;
   shortKey: string;
   originalUrl: string;
 }
 
-export default function UrlCard({ nickname, shortKey, originalUrl }: Props) {
+export default function UrlCard({
+  urlId,
+  nickname,
+  shortKey,
+  originalUrl,
+}: Props) {
   const [messageVisible, setMessageVisible] = useState<boolean>(false);
+  const [editVisible, setEditVisible] = useState<boolean>(false);
   const [websiteUrl, setWebsiteUrl] = useState<string>("");
+  const nicknameRef = useRef<HTMLInputElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -41,6 +52,37 @@ export default function UrlCard({ nickname, shortKey, originalUrl }: Props) {
     }
   };
 
+  const handleDelete = async () => {
+    const result = confirm(
+      `${originalUrl} (${
+        nickname ? nickname : "별명 없음"
+      }) 을 삭제하시겠습니까?`
+    );
+
+    if (result && urlId) {
+      await deleteUrl(urlId);
+    }
+  };
+
+  const handleUpdate = async () => {
+    const newNickname = nicknameRef.current?.value;
+    if (newNickname === undefined) {
+      return;
+    }
+    if (newNickname === nickname) {
+      setEditVisible(false);
+      return;
+    }
+
+    const errors = await updateUrl(urlId!, newNickname);
+
+    if (errors) {
+      alert(errors.join("\n"));
+    } else {
+      setEditVisible(false);
+    }
+  };
+
   return (
     <>
       {messageVisible && (
@@ -52,29 +94,63 @@ export default function UrlCard({ nickname, shortKey, originalUrl }: Props) {
           <p>복사 성공!</p>
         </div>
       )}
-      <div className="flex flex-col rounded-md bg-neutral-200">
-        {nickname !== undefined && (
-          <div className="p-2 px-3 flex justify-between items-center">
-            <p className="font-semibold text-xl">
-              {nickname ? nickname : "별명 없음"}
-            </p>
-            <div className="flex gap-2 *:size-5">
-              <button aria-label="Edit">
-                <PencilSquareIcon className="transition-colors hover:text-green-500" />
-              </button>
-              <button aria-label="Delete">
-                <TrashIcon className="transition-colors hover:text-green-500" />
-              </button>
+      <div className="flex flex-col rounded-md bg-neutral-200 shadow-md">
+        {nickname !== undefined &&
+          (editVisible ? (
+            <form
+              action={handleUpdate}
+              className="p-2 px-3 flex justify-between items-center"
+            >
+              <input
+                name="nickname"
+                placeholder="변경할 별명을 입력하세요."
+                defaultValue={nickname ?? ""}
+                ref={nicknameRef}
+                maxLength={20}
+                className="h-7 border-none rounded-md focus:outline-none placeholder:text-neutral-400 
+                ring-1 ring-neutral-200 focus:ring-2 focus:ring-neutral-400"
+              />
+              <div className="flex gap-2 *:size-5">
+                <button
+                  aria-label="save"
+                  className="hover:text-green-500 transition-colors"
+                >
+                  <DocumentCheckIcon />
+                </button>
+                <span
+                  aria-label="close"
+                  className="cursor-pointer hover:text-red-400 transition-colors"
+                  onClick={() => setEditVisible((pre) => !pre)}
+                >
+                  <XMarkIcon />
+                </span>
+              </div>
+            </form>
+          ) : (
+            <div className="p-2 px-3 flex justify-between items-center">
+              <p className="font-semibold text-xl">
+                {nickname ? nickname : "별명 없음"}
+              </p>
+              <div className="flex gap-2 *:size-5">
+                <button
+                  aria-label="edit"
+                  onClick={() => setEditVisible((pre) => !pre)}
+                >
+                  <PencilSquareIcon className="transition-colors hover:text-neutral-600" />
+                </button>
+                <button aria-label="delete" onClick={handleDelete}>
+                  <TrashIcon className="text-red-600 transition-colors hover:text-red-400" />
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          ))}
         {nickname !== undefined && <div className="border-b-2 border-white" />}
         <div
           className="group cursor-pointer p-2 px-3 truncate"
           onClick={() => handleCopy(originalUrl)}
         >
           <span className="font-medium">단축전: </span>
-          <span className="group-hover:text-green-500 transition-colors">
+          <span className="group-hover:text-neutral-500 transition-colors">
             {originalUrl}
           </span>
         </div>
@@ -84,7 +160,7 @@ export default function UrlCard({ nickname, shortKey, originalUrl }: Props) {
           onClick={() => handleCopy(`${websiteUrl}/${shortKey}`)}
         >
           <span className="font-medium">단축후: </span>
-          <span className="group-hover:text-green-500 transition-colors">
+          <span className="group-hover:text-neutral-500 transition-colors">
             {websiteUrl}/{shortKey}
           </span>
         </div>

@@ -1,7 +1,7 @@
 import MemberConvertUrlForm from "@/components/member-convert-url-form";
 import { getCachedUserUrls } from "@/lib/data/user-urls";
 import getSession from "@/lib/session";
-import { LinkIcon, ListBulletIcon } from "@heroicons/react/24/outline";
+import { LinkIcon } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
 import { UserUrlsLoading } from "./loading";
 import UrlCard from "@/components/url-card";
@@ -9,7 +9,7 @@ import UrlCard from "@/components/url-card";
 export default async function ConvertUrl() {
   return (
     <div className="p-5 xl:p-16">
-      <div className="flex md:flex-row flex-col gap-5 p-5">
+      <div className="flex md:flex-row flex-col gap-5">
         <div className="md:w-1/3 w-full flex flex-col gap-5">
           <MemberConvertUrlForm />
         </div>
@@ -33,9 +33,11 @@ async function UserUrls() {
         <LinkIcon className="size-6" />
         <span>내 URL</span>
       </div>
+      {urls.length === 0 && <p>변환한 URL이 없습니다.</p>}
       {urls.map((userUrl) => (
         <UrlCard
           key={userUrl.urlId}
+          urlId={userUrl.urlId}
           nickname={userUrl.nickname}
           shortKey={userUrl.url.shortKey}
           originalUrl={userUrl.url.originalUrl}
