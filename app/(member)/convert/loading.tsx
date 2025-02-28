@@ -1,5 +1,5 @@
 export default function Loading() {
-  return <div>로딩중</div>;
+  return <div className="p-5 px-16">로딩 중..</div>;
 }
 
 export function UserUrlsLoading() {

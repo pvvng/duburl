@@ -4,21 +4,16 @@ import getSession from "@/lib/session";
 import { LinkIcon, ListBulletIcon } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
 import { UserUrlsLoading } from "./loading";
+import UrlCard from "@/components/url-card";
 
 export default async function ConvertUrl() {
   return (
     <div className="p-5 xl:p-16">
-      <div className="flex gap-5 p-5">
-        <div className="w-1/3 flex flex-col gap-5">
+      <div className="flex md:flex-row flex-col gap-5 p-5">
+        <div className="md:w-1/3 w-full flex flex-col gap-5">
           <MemberConvertUrlForm />
-          <div className="white-card">
-            <div className="flex gap-2 items-center text-xl font-semibold ">
-              <ListBulletIcon className="size-6" />
-              <span>다른 URL 둘러보기</span>
-            </div>
-          </div>
         </div>
-        <div className="w-2/3">
+        <div className="md:w-2/3 w-full">
           <Suspense fallback={<UserUrlsLoading />}>
             <UserUrls />
           </Suspense>
@@ -39,15 +34,12 @@ async function UserUrls() {
         <span>내 URL</span>
       </div>
       {urls.map((userUrl) => (
-        <div
+        <UrlCard
           key={userUrl.urlId}
-          className="*:break-words flex flex-col gap-1 white-card bg-neutral-50"
-        >
-          <p>{userUrl.nickname ?? "별명 없음"}</p>
-          <p>{userUrl.url.originalUrl}</p>
-          <p>{userUrl.url.shortKey}</p>
-          <p>{userUrl.updatedAt.toString()}</p>
-        </div>
+          nickname={userUrl.nickname}
+          shortKey={userUrl.url.shortKey}
+          originalUrl={userUrl.url.originalUrl}
+        />
       ))}
     </div>
   );
