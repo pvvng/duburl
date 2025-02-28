@@ -25,5 +25,5 @@ export const memberUrlScema = z.object({
     })
     .trim()
     .min(0, NICKNAME_ERROR_MESSAGES.MIN_LENGTH(0))
-    .max(10, NICKNAME_ERROR_MESSAGES.MAX_LENGTH(10)),
+    .max(20, NICKNAME_ERROR_MESSAGES.MAX_LENGTH(20)),
 });

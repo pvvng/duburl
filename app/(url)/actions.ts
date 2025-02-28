@@ -30,19 +30,16 @@ export async function convertUrl(_: any, formData: FormData) {
     });
   }
 
-  let shortKey: string | null = null;
+  let shortKey: string;
   let isUnique = false;
-
-  while (!isUnique || !shortKey) {
+  do {
     shortKey = generateShortKey(6);
     const existingKey = await db.url.findUnique({
       where: { shortKey },
       select: { id: true },
     });
-
-    // 중복된 키가 없을 때까지 반복
-    if (!existingKey) isUnique = true;
-  }
+    isUnique = !existingKey;
+  } while (!isUnique);
 
   const shortendURLKey = await db.url.create({
     data: {

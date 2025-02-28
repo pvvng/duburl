@@ -2,10 +2,19 @@
 
 import { createActionResult } from "@/lib/create-result-object";
 import db from "@/lib/db";
+import getSession from "@/lib/session";
 import { memberUrlScema } from "@/lib/zodSchema/url";
 import generateShortKey from "@/util/generate-short-key";
+import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function memberConvertUrl(_: any, formData: FormData) {
+  const session = await getSession();
+
+  if (!session || !session.id) {
+    return redirect("/");
+  }
+
   const data = {
     nickname: formData.get("nickname"),
     url: formData.get("url"),
@@ -23,40 +32,81 @@ export async function memberConvertUrl(_: any, formData: FormData) {
   // 이미 축약된 같은 url이 존재한다면 반환
   const urlExist = await db.url.findUnique({
     where: { originalUrl: result.data.url },
-    select: { shortKey: true, originalUrl: true },
+    select: { id: true, shortKey: true, originalUrl: true },
   });
 
   if (urlExist) {
+    const urlNickname = await db.urlNickname.upsert({
+      where: {
+        userId_urlId: {
+          userId: session.id,
+          urlId: urlExist.id,
+        },
+      },
+      update: {
+        nickname:
+          result.data.nickname.trim() === "" ? null : result.data.nickname,
+      },
+      create: {
+        userId: session.id,
+        urlId: urlExist.id,
+        nickname:
+          result.data.nickname.trim() === "" ? null : result.data.nickname,
+      },
+      select: { nickname: true },
+    });
+
+    revalidateTag("user-urls");
+
     return createActionResult({
       success: true,
-      result: urlExist,
+      result: { ...urlExist, nickname: urlNickname.nickname },
     });
   }
 
-  let shortKey: string | null = null;
+  let shortKey: string;
   let isUnique = false;
-
-  while (!isUnique || !shortKey) {
+  do {
     shortKey = generateShortKey(6);
     const existingKey = await db.url.findUnique({
       where: { shortKey },
       select: { id: true },
     });
-
-    // 중복된 키가 없을 때까지 반복
-    if (!existingKey) isUnique = true;
-  }
+    isUnique = !existingKey;
+  } while (!isUnique);
 
   const shortendURLKey = await db.url.create({
     data: {
       shortKey,
       originalUrl: result.data.url,
     },
-    select: { shortKey: true, originalUrl: true },
+    select: { id: true, shortKey: true, originalUrl: true },
   });
+
+  const urlNickname = await db.urlNickname.upsert({
+    where: {
+      userId_urlId: {
+        userId: session.id,
+        urlId: shortendURLKey.id,
+      },
+    },
+    update: {
+      nickname:
+        result.data.nickname.trim() === "" ? null : result.data.nickname,
+    },
+    create: {
+      userId: session.id,
+      urlId: shortendURLKey.id,
+      nickname:
+        result.data.nickname.trim() === "" ? null : result.data.nickname,
+    },
+    select: { nickname: true },
+  });
+
+  revalidateTag("user-urls");
 
   return createActionResult({
     success: true,
-    result: shortendURLKey,
+    result: { ...shortendURLKey, nickname: urlNickname.nickname },
   });
 }
