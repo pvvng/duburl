@@ -4,13 +4,13 @@ import Button from "@/components/form-button";
 import Input from "@/components/form-input";
 import LocalURLsResultsBox from "./local-urls-results";
 import { convertUrl } from "@/app/(url)/actions";
-import { formDeafultValue } from "@/util/constants/form-deafult-value";
 import { LocalURLType } from "@/util/types/short-key";
 import { getLocalURLs, setLocalURLs } from "@/util/local-urls/local-urls";
 import { getUniqueKeys } from "@/util/local-urls/get-unique-keys";
 import { useActionState, useEffect, useState } from "react";
+import { formDeafultValue } from "@/lib/create-result-object";
 
-export default function ConvertUrlForm() {
+export default function GuestConvertUrlForm() {
   const [actionResult, action] = useActionState(convertUrl, formDeafultValue);
   const [previousURLs, setPreviousURLs] = useState<LocalURLType[]>([]);
   const [websiteUrl, setWebsiteUrl] = useState<string>("");
@@ -48,7 +48,7 @@ export default function ConvertUrlForm() {
           type="url"
           placeholder="단축할 URL을 입력하세요."
           required
-          errors={!actionResult.success ? actionResult.errors : []}
+          errors={!actionResult.success ? actionResult.formErrors : []}
         />
         <Button text="URL 단축하기" />
       </form>

@@ -2,24 +2,27 @@
 
 import { createActionResult } from "@/lib/create-result-object";
 import db from "@/lib/db";
-import { urlSchema } from "@/lib/zodSchema/url";
+import { memberUrlScema } from "@/lib/zodSchema/url";
 import generateShortKey from "@/util/generate-short-key";
 
-export async function convertUrl(_: any, formData: FormData) {
-  const data = formData.get("url");
+export async function memberConvertUrl(_: any, formData: FormData) {
+  const data = {
+    nickname: formData.get("nickname"),
+    url: formData.get("url"),
+  };
 
-  const result = urlSchema.safeParse(data);
+  const result = memberUrlScema.safeParse(data);
 
   if (!result.success) {
     return createActionResult({
       success: false,
-      formErrors: result.error.flatten().formErrors,
+      fieldErrors: result.error.flatten().fieldErrors,
     });
   }
 
   // 이미 축약된 같은 url이 존재한다면 반환
   const urlExist = await db.url.findUnique({
-    where: { originalUrl: result.data },
+    where: { originalUrl: result.data.url },
     select: { shortKey: true, originalUrl: true },
   });
 
@@ -47,7 +50,7 @@ export async function convertUrl(_: any, formData: FormData) {
   const shortendURLKey = await db.url.create({
     data: {
       shortKey,
-      originalUrl: result.data,
+      originalUrl: result.data.url,
     },
     select: { shortKey: true, originalUrl: true },
   });
