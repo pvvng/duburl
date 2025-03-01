@@ -24,7 +24,7 @@ function Explains() {
   return (
     <>
       <div className="white-card">
-        <p className="font-semibold text-lg flex gap-2 items-center">
+        <p className="font-semibold text-xl flex gap-2 items-center">
           <QuestionMarkCircleIcon className="size-6" />
           <span>UTM이 뭔가요?</span>
         </p>
@@ -47,7 +47,7 @@ function Explains() {
         </div>
       </div>
       <div className="white-card flex flex-col gap-1">
-        <p className="font-semibold text-lg flex gap-2 items-center">
+        <p className="font-semibold text-xl flex gap-2 items-center">
           <ChartBarIcon className="size-6" />
           <span>UTM이 왜 중요할까요?</span>
         </p>
