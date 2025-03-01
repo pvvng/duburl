@@ -5,10 +5,12 @@ import {
   UTM_SOURCE_ERROR_MESSAGES,
 } from "@/lib/errorMessages/utm";
 import { z } from "zod";
+import { nicknameScehma, urlSchema } from "./url";
 
 const regex = /^[a-zA-Z0-9_-]+$/;
 
 export const utmSchema = z.object({
+  url: urlSchema,
   utm_source: z
     .string({
       required_error: UTM_COMMON_ERROR_MESSAGES.REQUIRED,
@@ -53,4 +55,5 @@ export const utmSchema = z.object({
       (value) => value === "" || regex.test(value),
       UTM_COMMON_ERROR_MESSAGES.INVALID_CHAR
     ),
+  nickname: nicknameScehma,
 });

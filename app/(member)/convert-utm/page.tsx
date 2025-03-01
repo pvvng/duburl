@@ -28,7 +28,7 @@ export default function ConvertUTM() {
             </p>
             <p className="font-semibold">
               쉽게 말해, UTM은 “어디서, 어떻게, 왜” 사람들이 내 웹사이트를
-              방문하는지 추적하는 도구입니다!
+              방문하는지 추적하는 도구입니다.
             </p>
           </div>
         </div>

@@ -43,14 +43,7 @@ export default function RadioInputs({
   };
 
   return (
-    <div className="grid md:grid-cols-3 grid-cols-2 gap-3 text-center">
-      <div className="col-span-full text-start">
-        {errors.map((error, index) => (
-          <span key={index} className="text-red-500 font-medium">
-            {error}
-          </span>
-        ))}
-      </div>
+    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 text-center">
       {values.map(({ value, text }) => (
         <label
           key={value + text}
@@ -88,6 +81,13 @@ export default function RadioInputs({
           )}
         </div>
       )}
+      <div className="col-span-full text-start">
+        {errors.map((error, index) => (
+          <span key={index} className="text-red-500 font-medium">
+            {error}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

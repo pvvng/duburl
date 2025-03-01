@@ -8,23 +8,25 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  username    String        @unique
-  avatar      String?
-  email       String?       @unique
-  kakao_id    BigInt?       @unique
-  created_at  DateTime      @default(now())
-  updated_at  DateTime      @updatedAt
-  UrlNickname UrlNickname[]
+  id           Int           @id @default(autoincrement())
+  username     String        @unique
+  avatar       String?
+  email        String?       @unique
+  kakao_id     BigInt?       @unique
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  urlNicknames UrlNickname[]
+  utms         Utm[]
 }
 
 model Url {
-  id          Int           @id @default(autoincrement())
-  originalUrl String        @unique
-  shortKey    String        @unique
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  UrlNickname UrlNickname[]
+  id           Int           @id @default(autoincrement())
+  originalUrl  String        @unique
+  shortKey     String        @unique
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  urlNicknames UrlNickname[]
+  utms         Utm[]
 }
 
 model UrlNickname {
@@ -37,4 +39,22 @@ model UrlNickname {
   updatedAt DateTime @updatedAt
 
   @@id([userId, urlId])
+}
+
+model Utm {
+  id        Int      @id @default(autoincrement())
+  source    String
+  medium    String
+  campaign  String
+  term      String?
+  content   String?
+  nickname  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  url       Url      @relation(fields: [urlId], references: [id])
+  userId    Int
+  urlId     Int
+
+  @@unique([urlId, userId, source, medium, campaign])
 }
