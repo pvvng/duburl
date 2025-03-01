@@ -20,9 +20,12 @@ export default function UTMForm() {
         <PresentationChartBarIcon className="size-6" />
         <span>UTM 생성하기</span>
       </div>
+      <p className="text-orange-500 text-sm">
+        * 은 필수작성 / 필수선택 입니다.
+      </p>
       <div>
         <p className="font-semibold mb-3">
-          1. UTM으로 변환할 URL 주소{" "}
+          * UTM으로 변환할 URL 주소{" "}
           <span className="text-orange-500 text-xs">(필수 작성)</span>
         </p>
         <Input
@@ -35,7 +38,7 @@ export default function UTMForm() {
       </div>
       <div>
         <p className="font-semibold mb-3">
-          2. 웹사이트 홍보 경로{" "}
+          * 웹사이트 홍보 경로{" "}
           <span className="text-orange-500 text-xs">(필수 선택)</span>
         </p>
         <RadioInputs
@@ -49,7 +52,7 @@ export default function UTMForm() {
       </div>
       <div>
         <p className="font-semibold mb-3">
-          3. 웹사이트 유입 매체{" "}
+          * 웹사이트 유입 매체{" "}
           <span className="text-orange-500 text-xs">(필수 선택)</span>
         </p>
         <RadioInputs
@@ -63,7 +66,7 @@ export default function UTMForm() {
       </div>
       <div>
         <p className="font-semibold mb-3">
-          4. 광고/이벤트/캠페인 이름{" "}
+          * 광고/이벤트/캠페인 이름{" "}
           <span className="text-orange-500 text-xs">(필수 작성)</span>
         </p>
         <Input
@@ -74,7 +77,7 @@ export default function UTMForm() {
         />
       </div>
       <div>
-        <p className="font-semibold mb-3">5. 검색 광고의 키워드</p>
+        <p className="font-semibold mb-3">검색 광고의 키워드</p>
         <Input
           name="utm_term"
           placeholder="검색 광고의 키워드를 입력해주세요"
@@ -82,7 +85,7 @@ export default function UTMForm() {
         />
       </div>
       <div>
-        <p className="font-semibold mb-3">6. 동일한 광고 내에서 비교할 요소</p>
+        <p className="font-semibold mb-3">동일한 광고 내에서 비교할 요소</p>
         <Input
           name="utm_content"
           placeholder="예시: 버튼 클릭, 런닝화 사진 1 등"
@@ -90,7 +93,7 @@ export default function UTMForm() {
         />
       </div>
       <div>
-        <p className="font-semibold mb-3">7. 저장할 UTM 별명 지정 </p>
+        <p className="font-semibold mb-3">저장할 UTM 별명 지정 </p>
         <Input
           name="nickname"
           type="text"

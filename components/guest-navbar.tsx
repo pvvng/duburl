@@ -8,7 +8,8 @@ export default function GuestNavbar() {
       </Link>
       <Link
         href="/login"
-        className="bg-white text-black p-2 px-3 rounded-xl font-semibold transition-colors hover:bg-neutral-200 border border-neutral-200 shadow-md"
+        className="bg-neutral-300 text-black p-2 px-3 rounded-xl font-semibold transition-colors 
+        hover:bg-neutral-400 border border-neutral-300 shadow-md"
       >
         로그인
       </Link>

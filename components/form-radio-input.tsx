@@ -43,7 +43,7 @@ export default function RadioInputs({
   };
 
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 text-center">
+    <div className="grid md:grid-cols-3 grid-cols-2 gap-3 text-center">
       {values.map(({ value, text }) => (
         <label
           key={value + text}
@@ -65,7 +65,7 @@ export default function RadioInputs({
         </label>
       ))}
       {useExtra && (
-        <div className="relative">
+        <div className="relative col-span-full">
           <input
             name={name}
             placeholder={extraPlaceholder}
