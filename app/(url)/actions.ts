@@ -11,8 +11,10 @@ export async function convertUrl(_: any, formData: FormData) {
   const result = urlSchema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.flatten().formErrors;
-    return createActionResult(false, undefined, errors);
+    return createActionResult({
+      success: false,
+      formErrors: result.error.flatten().formErrors,
+    });
   }
 
   // 이미 축약된 같은 url이 존재한다면 반환
@@ -22,22 +24,22 @@ export async function convertUrl(_: any, formData: FormData) {
   });
 
   if (urlExist) {
-    return createActionResult(true, urlExist, undefined);
+    return createActionResult({
+      success: true,
+      result: urlExist,
+    });
   }
 
-  let shortKey: string | null = null;
+  let shortKey: string;
   let isUnique = false;
-
-  while (!isUnique || !shortKey) {
+  do {
     shortKey = generateShortKey(6);
     const existingKey = await db.url.findUnique({
       where: { shortKey },
       select: { id: true },
     });
-
-    // 중복된 키가 없을 때까지 반복
-    if (!existingKey) isUnique = true;
-  }
+    isUnique = !existingKey;
+  } while (!isUnique);
 
   const shortendURLKey = await db.url.create({
     data: {
@@ -47,5 +49,8 @@ export async function convertUrl(_: any, formData: FormData) {
     select: { shortKey: true, originalUrl: true },
   });
 
-  return createActionResult(true, shortendURLKey, undefined);
+  return createActionResult({
+    success: true,
+    result: shortendURLKey,
+  });
 }

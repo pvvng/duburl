@@ -1,4 +1,4 @@
-import ConvertUrlForm from "@/components/convert-url-form";
+import GuestConvertUrlForm from "@/components/guest-convert-url-form";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   return (
     <div>
-      <ConvertUrlForm />
+      <GuestConvertUrlForm />
     </div>
   );
 }

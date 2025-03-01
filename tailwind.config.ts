@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        anton: "var(--anton-text)",
+      },
       animation: {
         moveUp: "moveUp 1s ease-out forwards",
       },
