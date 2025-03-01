@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteUrl, updateUrl } from "@/app/(member)/convert/actions";
+import { deleteUrl, updateUrl } from "@/app/(member)/convert-url/actions";
 import { copyToClipboard } from "@/util/copy-to-clipboard";
 import {
   DocumentCheckIcon,
@@ -88,13 +88,13 @@ export default function UrlCard({
       {messageVisible && (
         <div
           className="fixed bottom-1/2 left-1/2 animate-moveUp font-semibold
-        flex gap-2 bg-green-500 text-white p-3 px-5 rounded-md text-center"
+        flex gap-2 bg-green-500 text-white p-3 px-5 rounded-xl text-center"
         >
           <InformationCircleIcon className="size-6" />
           <p>복사 성공!</p>
         </div>
       )}
-      <div className="flex flex-col rounded-md bg-neutral-200 shadow-md">
+      <div className="flex flex-col rounded-xl bg-neutral-200 shadow-md">
         {nickname !== undefined &&
           (editVisible ? (
             <form
@@ -107,7 +107,7 @@ export default function UrlCard({
                 defaultValue={nickname ?? ""}
                 ref={nicknameRef}
                 maxLength={20}
-                className="h-7 border-none rounded-md focus:outline-none placeholder:text-neutral-400 
+                className="h-6 border-none rounded-xl focus:outline-none placeholder:text-neutral-400 
                 ring-1 ring-neutral-200 focus:ring-2 focus:ring-neutral-400"
               />
               <div className="flex gap-2 *:size-5">
@@ -128,7 +128,7 @@ export default function UrlCard({
             </form>
           ) : (
             <div className="p-2 px-3 flex justify-between items-center">
-              <p className="font-semibold text-xl">
+              <p className="font-semibold">
                 {nickname ? nickname : "별명 없음"}
               </p>
               <div className="flex gap-2 *:size-5">
@@ -136,7 +136,7 @@ export default function UrlCard({
                   aria-label="edit"
                   onClick={() => setEditVisible((pre) => !pre)}
                 >
-                  <PencilSquareIcon className="transition-colors hover:text-neutral-600" />
+                  <PencilSquareIcon className="transition-colors hover:text-neutral-500" />
                 </button>
                 <button aria-label="delete" onClick={handleDelete}>
                   <TrashIcon className="text-red-600 transition-colors hover:text-red-400" />

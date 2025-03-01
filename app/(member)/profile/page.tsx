@@ -24,10 +24,10 @@ export default async function Profile() {
   if (!user) notFound();
 
   return (
-    <div className="p-5 xl:px-16 pt-20">
+    <div className="p-5 xl:p-16">
       <h1 className="font-semibold text-2xl mb-3">내 프로필</h1>
-      <div className="w-full bg-white shadow-md rounded-md p-5 flex md:flex-row flex-col gap-3 md:gap-10">
-        <div className="size-36 border-2 border-white rounded-full overflow-hidden relative bg-white shadow-md mx-auto md:mx-0">
+      <div className="w-full white-card p-5 flex md:flex-row flex-col gap-3 md:gap-10">
+        <div className="size-36 border-2 border-white rounded-full overflow-hidden relative white-card mx-auto md:mx-0">
           {user.avatar ? (
             <Image
               src={user.avatar}
@@ -62,7 +62,7 @@ export default async function Profile() {
           <Link
             href="#1"
             className="bg-neutral-100 hover:bg-neutral-200 transition-colors 
-                font-medium text-center p-2 px-3 rounded-md shadow-md"
+                font-medium text-center p-2 px-3 rounded-xl shadow-md"
           >
             프로필 편집
           </Link>

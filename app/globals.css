@@ -4,6 +4,6 @@
 
 @layer components {
   .white-card {
-    @apply bg-white rounded-md p-5 shadow-md;
+    @apply bg-white rounded-xl p-5 shadow-md;
   }
 }

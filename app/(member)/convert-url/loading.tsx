@@ -5,7 +5,7 @@ export default function Loading() {
 export function UserUrlsLoading() {
   return (
     <div className="flex flex-col gap-3 white-card animate-pulse">
-      <div className="flex gap-2 items-center *:rounded-md">
+      <div className="flex gap-2 items-center *:rounded-xl">
         <div className="size-7 bg-neutral-300" />
         <div className="w-24 h-7 bg-neutral-300" />
       </div>

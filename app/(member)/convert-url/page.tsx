@@ -10,10 +10,10 @@ export default async function ConvertUrl() {
   return (
     <div className="p-5 xl:p-16">
       <div className="flex md:flex-row flex-col gap-5">
-        <div className="md:w-1/3 w-full flex flex-col gap-5">
+        <div className="md:w-1/3">
           <MemberConvertUrlForm />
         </div>
-        <div className="md:w-2/3 w-full">
+        <div className="md:w-2/3">
           <Suspense fallback={<UserUrlsLoading />}>
             <UserUrls />
           </Suspense>

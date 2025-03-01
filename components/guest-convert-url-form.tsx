@@ -36,7 +36,7 @@ export default function GuestConvertUrlForm() {
   }, [actionResult]);
 
   return (
-    <div className="max-w-screen-sm mx-auto flex flex-col justify-center gap-10 p-5">
+    <div className="max-w-screen-sm mx-auto flex flex-col justify-center gap-5 p-5">
       <h1 className="text-2xl font-semibold">✂ 긴 URL 짧게 만드는 사이트</h1>
       <form action={action} className="flex flex-col justify-center gap-3">
         <Input
@@ -48,7 +48,7 @@ export default function GuestConvertUrlForm() {
         />
         <Button text="URL 단축하기" />
       </form>
-      <div className="border-2 shadow-md border-neutral-200 rounded-md">
+      <div className="border-2 shadow-md border-neutral-200 rounded-xl">
         <div className="border-b-2 border-b-neutral-200 flex flex-col gap-3 p-5">
           <p className="font-semibold text-lg">사용 방법</p>
           <p>1. 입력창에 단축하고 싶은 URL을 복사해서 붙여넣습니다.</p>
