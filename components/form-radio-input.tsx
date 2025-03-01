@@ -11,13 +11,15 @@ interface InputProps {
   }[];
   useExtra?: boolean;
   errors?: string[];
+  extraPlaceholder?: string;
 }
 
-export default function RadioInput({
+export default function RadioInputs({
   name,
   values,
   errors = [],
   useExtra = false,
+  extraPlaceholder,
   ...rest
 }: InputProps & InputHTMLAttributes<HTMLInputElement>) {
   const [disabled, setDisabled] = useState(false);
@@ -25,14 +27,14 @@ export default function RadioInput({
   const [extra, setExtra] = useState("");
 
   const handleExtraChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isExtraHasValue = e.target.value.length > 0;
+    const extraValue = e.target.value;
+    setExtra(extraValue);
 
-    if (isExtraHasValue) {
+    setDisabled(extraValue.length > 0);
+
+    if (extraValue.length > 0) {
       setSelected("");
-      setExtra(e.target.value);
     }
-
-    setDisabled(isExtraHasValue);
   };
 
   const handleExtraClear = () => {
@@ -42,6 +44,13 @@ export default function RadioInput({
 
   return (
     <div className="grid md:grid-cols-3 grid-cols-2 gap-3 text-center">
+      <div className="col-span-full text-start">
+        {errors.map((error, index) => (
+          <span key={index} className="text-red-500 font-medium">
+            {error}
+          </span>
+        ))}
+      </div>
       {values.map(({ value, text }) => (
         <label
           key={value + text}
@@ -63,10 +72,10 @@ export default function RadioInput({
         </label>
       ))}
       {useExtra && (
-        <div className="md:col-span-3 relative">
+        <div className="relative">
           <input
             name={name}
-            placeholder="기타"
+            placeholder={extraPlaceholder}
             value={extra}
             onChange={handleExtraChange}
             className="w-full h-10 border-none rounded-xl focus:outline-none 

@@ -1,5 +1,7 @@
 "use server";
 
+import { utmSchema } from "@/lib/zodSchema/utm";
+
 export async function createUtm(_: any, formData: FormData) {
   const data = {
     utm_source: formData.get("utm_source"),
@@ -9,5 +11,11 @@ export async function createUtm(_: any, formData: FormData) {
     utm_content: formData.get("utm_content"),
   };
 
-  console.log(data);
+  const result = utmSchema.safeParse(data);
+
+  if (!result.success) {
+    return result.error.flatten();
+  }
+
+  console.log(result.data);
 }
