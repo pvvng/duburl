@@ -9,7 +9,7 @@ import { Suspense } from "react";
 const NavKeys = [
   { name: "URL 단축", path: "/convert-url" },
   { name: "UTM 변환", path: "/convert-utm" },
-  { name: "UTM 대시보드", path: "/dashboard" },
+  { name: "대시보드", path: "/dashboard" },
 ];
 
 export default async function MemeberNavbar() {

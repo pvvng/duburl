@@ -42,17 +42,32 @@ model UserUrl {
 }
 
 model Utm {
-  id        Int      @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
+  baseUrl   String
   source    String
   medium    String
   campaign  String
-  term      String?
-  content   String?
+  term      String
+  content   String
   nickname  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userUrl   UserUrl  @relation(fields: [userUrlId], references: [id], onDelete: Cascade)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  userUrl   UserUrl       @relation(fields: [userUrlId], references: [id], onDelete: Cascade)
   userUrlId Int
+  tracking  UtmTracking[]
 
-  @@unique([userUrlId, source, medium, campaign])
+  @@unique([baseUrl, source, medium, campaign, term, content])
+}
+
+model UtmTracking {
+  id             Int    @id @default(autoincrement())
+  ip             String
+  language       String
+  platform       String
+  os             String
+  browser        String
+  browserVersion String
+  device         String
+  utm            Utm    @relation(fields: [utmId], references: [id])
+  utmId          Int
 }

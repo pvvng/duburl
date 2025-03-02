@@ -35,14 +35,15 @@ export async function createUtm(_: any, formData: FormData) {
   // userUrl 검색 혹은 생성
   const { id: userUrlId } = await getUserUrlId(session.id, urlId);
 
-  // 이미 완전 동일한 utm이 있는지 확인
   const isExist = await db.utm.findUnique({
     where: {
-      userUrlId_source_medium_campaign: {
-        userUrlId,
+      baseUrl_source_medium_campaign_term_content: {
         source: result.data.utm_source,
         medium: result.data.utm_medium,
         campaign: result.data.utm_campaign,
+        baseUrl: result.data.url,
+        term: result.data.utm_term,
+        content: result.data.utm_content,
       },
     },
     select: { id: true },
@@ -52,8 +53,6 @@ export async function createUtm(_: any, formData: FormData) {
     return redirect("/dashboard");
   }
 
-  const term = result.data.utm_term || null;
-  const content = result.data.utm_content || null;
   const nickname = result.data.nickname || null;
 
   const utm = await db.utm.create({
@@ -62,8 +61,9 @@ export async function createUtm(_: any, formData: FormData) {
       source: result.data.utm_source,
       medium: result.data.utm_medium,
       campaign: result.data.utm_campaign,
-      term,
-      content,
+      baseUrl: result.data.url,
+      term: result.data.utm_term,
+      content: result.data.utm_content,
       nickname,
     },
     select: { id: true },
