@@ -2,6 +2,8 @@ import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
 
+async function getUtms(userId: number) {}
+
 export default async function DashBoard() {
   const session = await getSession();
 

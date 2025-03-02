@@ -7,7 +7,7 @@ export const getCachedUserUrls = unstable_cache(getUserUrls, ["user-urls"], {
 });
 
 export async function getUserUrls(userId: number) {
-  const urls = await db.urlNickname.findMany({
+  const urls = await db.userUrl.findMany({
     where: { userId },
     include: {
       url: {

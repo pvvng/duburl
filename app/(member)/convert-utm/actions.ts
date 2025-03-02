@@ -32,14 +32,14 @@ export async function createUtm(_: any, formData: FormData) {
 
   /// shortkey 검색 혹은 생성
   const { id: urlId } = await getUrlId(result.data.url);
-  // urlNickname 검색 혹은 생성
-  const { id: urlNicknameId } = await getUrlNicknameId(session.id, urlId);
+  // userUrl 검색 혹은 생성
+  const { id: userUrlId } = await getUserUrlId(session.id, urlId);
 
   // 이미 완전 동일한 utm이 있는지 확인
   const isExist = await db.utm.findUnique({
     where: {
-      urlNicknameId_source_medium_campaign: {
-        urlNicknameId,
+      userUrlId_source_medium_campaign: {
+        userUrlId,
         source: result.data.utm_source,
         medium: result.data.utm_medium,
         campaign: result.data.utm_campaign,
@@ -58,7 +58,7 @@ export async function createUtm(_: any, formData: FormData) {
 
   const utm = await db.utm.create({
     data: {
-      urlNicknameId,
+      userUrlId,
       source: result.data.utm_source,
       medium: result.data.utm_medium,
       campaign: result.data.utm_campaign,
@@ -106,8 +106,8 @@ async function getUrlId(originalUrl: string) {
   });
 }
 
-async function getUrlNicknameId(userId: number, urlId: number) {
-  const result = await db.urlNickname.upsert({
+async function getUserUrlId(userId: number, urlId: number) {
+  const result = await db.userUrl.upsert({
     where: {
       userId_urlId: {
         userId,

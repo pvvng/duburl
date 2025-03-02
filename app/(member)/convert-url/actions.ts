@@ -36,7 +36,7 @@ export async function memberConvertUrl(_: any, formData: FormData) {
   });
 
   if (urlExist) {
-    const urlNickname = await db.urlNickname.upsert({
+    const userUrl = await db.userUrl.upsert({
       where: {
         userId_urlId: {
           userId: session.id,
@@ -60,7 +60,7 @@ export async function memberConvertUrl(_: any, formData: FormData) {
 
     return createActionResult({
       success: true,
-      result: { ...urlExist, nickname: urlNickname.nickname },
+      result: { ...urlExist, nickname: userUrl.nickname },
     });
   }
 
@@ -83,7 +83,7 @@ export async function memberConvertUrl(_: any, formData: FormData) {
     select: { id: true, shortKey: true, originalUrl: true },
   });
 
-  const urlNickname = await db.urlNickname.upsert({
+  const userUrl = await db.userUrl.upsert({
     where: {
       userId_urlId: {
         userId: session.id,
@@ -107,7 +107,7 @@ export async function memberConvertUrl(_: any, formData: FormData) {
 
   return createActionResult({
     success: true,
-    result: { ...shortendURLKey, nickname: urlNickname.nickname },
+    result: { ...shortendURLKey, nickname: userUrl.nickname },
   });
 }
 
@@ -118,7 +118,7 @@ export async function deleteUrl(urlId: number) {
     return redirect("/");
   }
 
-  await db.urlNickname.delete({
+  await db.userUrl.delete({
     where: {
       userId_urlId: {
         userId: session.id,
@@ -143,7 +143,7 @@ export async function updateUrl(urlId: number, nickname: string | null) {
     return result.error.flatten().formErrors;
   }
 
-  await db.urlNickname.update({
+  await db.userUrl.update({
     where: {
       userId_urlId: {
         userId: session.id,
