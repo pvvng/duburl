@@ -54,9 +54,9 @@ export default function UrlCard({
 
   const handleDelete = async () => {
     const result = confirm(
-      `${originalUrl} (${
-        nickname ? nickname : "별명 없음"
-      }) 을 삭제하시겠습니까?`
+      `URL 삭제시 관련된 모든 UTM이 삭제됩니다.\n${originalUrl} (${
+        nickname ? nickname : shortKey
+      }) 을 정말 삭제하시겠습니까?`
     );
 
     if (result && urlId) {
@@ -128,9 +128,7 @@ export default function UrlCard({
             </form>
           ) : (
             <div className="p-2 px-3 flex justify-between items-center">
-              <p className="font-semibold">
-                {nickname ? nickname : "별명 없음"}
-              </p>
+              <p className="font-semibold">{nickname ? nickname : shortKey}</p>
               <div className="flex gap-2 *:size-5">
                 <button
                   aria-label="edit"

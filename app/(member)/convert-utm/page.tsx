@@ -1,17 +1,28 @@
 import UTMForm from "@/components/convert-utm-form";
+import { getCachedUserUrls } from "@/lib/data/user-urls";
+import getSession from "@/lib/session";
 import {
   ChartBarIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
+import { redirect } from "next/navigation";
 
-export default function ConvertUTM() {
+export default async function ConvertUTM() {
+  const session = await getSession();
+
+  if (!session || !session.id) {
+    return redirect("/");
+  }
+
+  const userUrls = await getCachedUserUrls(session.id);
+
   return (
     <div className="p-5 xl:p-16 flex flex-col lg:flex-row gap-5">
       <div className="lg:w-1/3 hidden lg:flex flex-col gap-5">
         <Explains />
       </div>
       <div className="lg:w-2/3 w-full">
-        <UTMForm />
+        <UTMForm userUrls={userUrls} />
       </div>
       <div className="lg:hidden w-full flex flex-col gap-5">
         <Explains />

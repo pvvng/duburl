@@ -28,7 +28,7 @@ async function UserUrls() {
   const urls = await getCachedUserUrls(session.id!);
 
   return (
-    <div className="flex flex-col gap-3 white-card">
+    <div className="flex flex-col gap-5 white-card">
       <div className="text-xl font-semibold flex gap-2 items-center">
         <LinkIcon className="size-6" />
         <span>내 URL</span>

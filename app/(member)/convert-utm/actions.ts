@@ -4,6 +4,7 @@ import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { utmSchema } from "@/lib/zodSchema/utm";
 import generateShortKey from "@/util/generate-short-key";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function createUtm(_: any, formData: FormData) {
@@ -29,18 +30,19 @@ export async function createUtm(_: any, formData: FormData) {
     return redirect("/");
   }
 
-  /// shortkey 생성 혹은 검색
+  /// shortkey 검색 혹은 생성
   const { id: urlId } = await getUrlId(result.data.url);
+  // urlNickname 검색 혹은 생성
+  const { id: urlNicknameId } = await getUrlNicknameId(session.id, urlId);
 
   // 이미 완전 동일한 utm이 있는지 확인
   const isExist = await db.utm.findUnique({
     where: {
-      urlId_userId_source_medium_campaign: {
+      urlNicknameId_source_medium_campaign: {
+        urlNicknameId,
         source: result.data.utm_source,
-        campaign: result.data.utm_campaign,
         medium: result.data.utm_medium,
-        urlId,
-        userId: session.id,
+        campaign: result.data.utm_campaign,
       },
     },
     select: { id: true },
@@ -56,11 +58,10 @@ export async function createUtm(_: any, formData: FormData) {
 
   const utm = await db.utm.create({
     data: {
-      userId: session.id,
+      urlNicknameId,
       source: result.data.utm_source,
       medium: result.data.utm_medium,
       campaign: result.data.utm_campaign,
-      urlId,
       term,
       content,
       nickname,
@@ -103,4 +104,25 @@ async function getUrlId(originalUrl: string) {
     },
     select: { id: true },
   });
+}
+
+async function getUrlNicknameId(userId: number, urlId: number) {
+  const result = await db.urlNickname.upsert({
+    where: {
+      userId_urlId: {
+        userId,
+        urlId,
+      },
+    },
+    update: {},
+    create: {
+      userId,
+      urlId,
+    },
+    select: { id: true },
+  });
+
+  revalidateTag("user-urls");
+
+  return result;
 }

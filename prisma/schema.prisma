@@ -16,7 +16,6 @@ model User {
   created_at   DateTime      @default(now())
   updated_at   DateTime      @updatedAt
   urlNicknames UrlNickname[]
-  utms         Utm[]
 }
 
 model Url {
@@ -26,35 +25,34 @@ model Url {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   urlNicknames UrlNickname[]
-  utms         Utm[]
 }
 
 model UrlNickname {
-  user      User     @relation(fields: [userId], references: [id])
-  url       Url      @relation(fields: [urlId], references: [id])
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  url       Url      @relation(fields: [urlId], references: [id], onDelete: Cascade)
   userId    Int
   urlId     Int
   nickname  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Utm       Utm[]
 
-  @@id([userId, urlId])
+  @@unique([userId, urlId])
 }
 
 model Utm {
-  id        Int      @id @default(autoincrement())
-  source    String
-  medium    String
-  campaign  String
-  term      String?
-  content   String?
-  nickname  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  url       Url      @relation(fields: [urlId], references: [id])
-  userId    Int
-  urlId     Int
+  id            Int         @id @default(autoincrement())
+  source        String
+  medium        String
+  campaign      String
+  term          String?
+  content       String?
+  nickname      String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  urlNicknames  UrlNickname @relation(fields: [urlNicknameId], references: [id], onDelete: Cascade)
+  urlNicknameId Int
 
-  @@unique([urlId, userId, source, medium, campaign])
+  @@unique([urlNicknameId, source, medium, campaign])
 }
