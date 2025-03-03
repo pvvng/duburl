@@ -4,6 +4,7 @@ interface UTMComponentsType {
   campaign: string;
   term: string | null;
   content: string | null;
+  userUrlId: number;
 }
 
 export function getFormattedUTM({
@@ -12,6 +13,7 @@ export function getFormattedUTM({
   campaign,
   term,
   content,
+  userUrlId,
 }: UTMComponentsType) {
   const params = {
     source,
@@ -19,6 +21,7 @@ export function getFormattedUTM({
     campaign,
     ...(term ? { term: term } : {}),
     ...(content ? { content: content } : {}),
+    uid: userUrlId.toString(),
   };
 
   return new URLSearchParams(params).toString();

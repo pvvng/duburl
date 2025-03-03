@@ -37,11 +37,11 @@ export async function createUtm(_: any, formData: FormData) {
 
   const isExist = await db.utm.findUnique({
     where: {
-      baseUrl_source_medium_campaign_term_content: {
+      userUrlId_source_medium_campaign_term_content: {
+        userUrlId,
         source: result.data.utm_source,
         medium: result.data.utm_medium,
         campaign: result.data.utm_campaign,
-        baseUrl: result.data.url,
         term: result.data.utm_term,
         content: result.data.utm_content,
       },
@@ -53,18 +53,15 @@ export async function createUtm(_: any, formData: FormData) {
     return redirect("/dashboard");
   }
 
-  const nickname = result.data.nickname || null;
-
   const utm = await db.utm.create({
     data: {
       userUrlId,
       source: result.data.utm_source,
       medium: result.data.utm_medium,
       campaign: result.data.utm_campaign,
-      baseUrl: result.data.url,
       term: result.data.utm_term,
       content: result.data.utm_content,
-      nickname,
+      nickname: result.data.nickname || null,
     },
     select: { id: true },
   });

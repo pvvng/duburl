@@ -10,6 +10,7 @@ import { redirect } from "next/navigation";
 export default async function ConvertUTM() {
   const session = await getSession();
 
+  console.log(session);
   if (!session || !session.id) {
     return redirect("/");
   }
