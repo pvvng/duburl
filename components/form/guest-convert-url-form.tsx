@@ -59,7 +59,8 @@ export default function GuestConvertUrlForm() {
           </p>
           <Link
             href="/login"
-            className="rounded-lg bg-neutral-200 hover:bg-neutral-300 transition-colors px-3 p-2"
+            className="rounded-lg border border-blue-600 text-blue-600 transition-colors px-3 p-2
+            hover:border-blue-500 hover:bg-blue-500 hover:text-white font-semibold"
           >
             로그인 하러 가보기
           </Link>

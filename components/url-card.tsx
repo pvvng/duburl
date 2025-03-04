@@ -90,7 +90,7 @@ export default function UrlCard({
       {messageVisible && (
         <div
           className="fixed bottom-1/2 left-1/2 animate-moveUp font-semibold
-        flex gap-2 bg-green-500 text-white p-3 px-5 rounded-xl text-center"
+        flex gap-2 bg-blue-500 text-white p-3 px-5 rounded-xl text-center"
         >
           <InformationCircleIcon className="size-6" />
           <p>복사 성공!</p>
@@ -146,10 +146,11 @@ export default function UrlCard({
           ))}
         {type === "member" && <div className="border-b-2 border-white" />}
         <div
-          className="group cursor-pointer p-2 px-3 break-words"
+          className="hover:text-blue-500 cursor-pointer p-2 px-3 break-words transition-colors"
           onClick={() => handleCopy(`${websiteUrl}/${shortKey}`)}
         >
-          <span className="group-hover:text-green-500 transition-colors">
+          {type === "guest" && <span className="font-semibold">단축후: </span>}
+          <span>
             {websiteUrl}/{shortKey}
           </span>
         </div>
@@ -157,13 +158,11 @@ export default function UrlCard({
           <>
             <div className="border-b-2 border-white" />
             <div
-              className="group cursor-pointer p-2 px-3 break-words"
+              className="hover:text-blue-500 cursor-pointer p-2 px-3 break-words transition-colors"
               onClick={() => handleCopy(originalUrl)}
             >
-              <span className="font-medium">단축 전: </span>
-              <span className="group-hover:text-neutral-500 transition-colors">
-                {originalUrl}
-              </span>
+              <span className="font-semibold">단축전: </span>
+              <span>{originalUrl}</span>
             </div>
           </>
         )}
