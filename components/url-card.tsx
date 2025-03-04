@@ -16,6 +16,7 @@ interface Props {
   urlId?: number;
   shortKey: string;
   originalUrl: string;
+  type: "member" | "guest";
 }
 
 export default function UrlCard({
@@ -23,6 +24,7 @@ export default function UrlCard({
   nickname,
   shortKey,
   originalUrl,
+  type,
 }: Props) {
   const [messageVisible, setMessageVisible] = useState<boolean>(false);
   const [editVisible, setEditVisible] = useState<boolean>(false);
@@ -95,7 +97,7 @@ export default function UrlCard({
         </div>
       )}
       <div className="flex flex-col rounded-xl bg-neutral-200 shadow-md">
-        {nickname !== undefined &&
+        {type === "member" &&
           (editVisible ? (
             <form
               action={handleUpdate}
@@ -142,26 +144,29 @@ export default function UrlCard({
               </div>
             </div>
           ))}
-        {nickname !== undefined && <div className="border-b-2 border-white" />}
-        <div
-          className="group cursor-pointer p-2 px-3 break-words"
-          onClick={() => handleCopy(originalUrl)}
-        >
-          <span className="font-medium">전: </span>
-          <span className="group-hover:text-green-500 transition-colors">
-            {originalUrl}
-          </span>
-        </div>
-        <div className="border-b-2 border-white" />
+        {type === "member" && <div className="border-b-2 border-white" />}
         <div
           className="group cursor-pointer p-2 px-3 break-words"
           onClick={() => handleCopy(`${websiteUrl}/${shortKey}`)}
         >
-          <span className="font-medium">후: </span>
           <span className="group-hover:text-green-500 transition-colors">
             {websiteUrl}/{shortKey}
           </span>
         </div>
+        {type === "guest" && (
+          <>
+            <div className="border-b-2 border-white" />
+            <div
+              className="group cursor-pointer p-2 px-3 break-words"
+              onClick={() => handleCopy(originalUrl)}
+            >
+              <span className="font-medium">단축 전: </span>
+              <span className="group-hover:text-neutral-500 transition-colors">
+                {originalUrl}
+              </span>
+            </div>
+          </>
+        )}
       </div>
     </>
   );

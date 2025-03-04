@@ -21,6 +21,7 @@ export async function UserUrls() {
           nickname={userUrl.nickname}
           shortKey={userUrl.url.shortKey}
           originalUrl={userUrl.url.originalUrl}
+          type="member"
         />
       ))}
     </div>

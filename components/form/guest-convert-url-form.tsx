@@ -82,7 +82,7 @@ export default function GuestConvertUrlForm() {
             <p>URL 단축 내역이 존재하지 않습니다.</p>
           )}
           {previousURLs.map((url) => (
-            <UrlCard key={url.shortKey} {...url} />
+            <UrlCard key={url.shortKey} {...url} type="guest" />
           ))}
         </div>
       </div>
