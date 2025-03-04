@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
   const email = kakao_account.has_email ? kakao_account.email : null;
 
   const user = await db.user.findUnique({
-    where: { kakao_id: id },
+    where: { kakao_id: id.toString() },
     select: { id: true },
   });
 
@@ -62,7 +62,7 @@ export async function GET(req: NextRequest) {
       // 같은 이메일을 가진 사용자가 존재한다면 email field null로
       email: !emailExist ? email : null,
       avatar,
-      kakao_id: id,
+      kakao_id: id.toString(),
     },
     select: { id: true },
   });

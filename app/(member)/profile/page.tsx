@@ -2,38 +2,41 @@ import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { Suspense } from "react";
+import { UserUrls } from "@/components/member-urls";
+import { UserUrlsLoading } from "@/components/member-urls-loading";
+import { getCachedUser } from "@/lib/data/user";
+import { revalidateTag } from "next/cache";
 
 export default async function Profile() {
   const session = await getSession();
 
   if (!session || !session.id) notFound();
 
-  const user = await db.user.findUnique({
-    where: { id: session.id },
-    select: {
-      id: true,
-      username: true,
-      avatar: true,
-      email: true,
-      kakao_id: true,
-    },
-  });
+  const user = await getCachedUser(session.id);
 
   if (!user) notFound();
 
+  const logout = async () => {
+    "use server";
+    const session = await getSession();
+    session.destroy();
+    revalidateTag("user");
+    redirect("/");
+  };
+
   return (
-    <div className="p-5 xl:p-16">
-      <h1 className="font-semibold text-2xl mb-3">내 프로필</h1>
-      <div className="w-full white-card p-5 flex md:flex-row flex-col gap-3 md:gap-10">
-        <div className="size-36 border-2 border-white rounded-full overflow-hidden relative white-card mx-auto md:mx-0">
+    <div className="p-5 xl:p-16 flex md:flex-row flex-col gap-5">
+      <div className="md:w-1/3 white-card p-5 flex flex-col gap-8">
+        <div className="size-36 border-2 border-white rounded-full overflow-hidden relative white-card mx-auto">
           {user.avatar ? (
             <Image
               src={user.avatar}
               alt={user.username}
               fill
               sizes="36"
+              priority
               className="object-cover"
             />
           ) : (
@@ -59,14 +62,20 @@ export default async function Profile() {
               )}
             </p>
           </div>
-          <Link
-            href="#1"
-            className="bg-neutral-100 hover:bg-neutral-200 transition-colors 
-                font-medium text-center p-2 px-3 rounded-xl shadow-md"
-          >
-            프로필 편집
-          </Link>
+          <form action={logout}>
+            <button
+              className="mt-5 w-full border-2 border-red-500 rounded-lg text-red-500 
+            hover:bg-red-500 hover:text-white p-2 px-3 transition-colors font-semibold"
+            >
+              로그아웃
+            </button>
+          </form>
         </div>
+      </div>
+      <div className="md:w-2/3">
+        <Suspense fallback={<UserUrlsLoading />}>
+          <UserUrls />
+        </Suspense>
       </div>
     </div>
   );

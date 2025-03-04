@@ -9,6 +9,7 @@ import { getUniqueKeys } from "@/util/local-urls/get-unique-keys";
 import { useActionState, useEffect, useState } from "react";
 import { formDeafultValue } from "@/lib/create-result-object";
 import UrlCard from "../url-card";
+import Link from "next/link";
 
 export default function GuestConvertUrlForm() {
   const [actionResult, action] = useActionState(convertUrl, formDeafultValue);
@@ -49,10 +50,26 @@ export default function GuestConvertUrlForm() {
         <Button text="URL 단축하기" />
       </form>
       <div className="border-2 shadow-md border-neutral-200 rounded-xl">
-        <div className="border-b-2 border-b-neutral-200 flex flex-col gap-3 p-5">
-          <p className="font-semibold text-lg">사용 방법</p>
-          <p>1. 입력창에 단축하고 싶은 URL을 복사해서 붙여넣습니다.</p>
-          <p>2. 단축된 URL을 브라우저 주소창에 붙여넣습니다.</p>
+        <div className="border-b-2 border-b-neutral-200 p-5">
+          <p className="font-semibold text-lg">로그인하고 더 편하게 사용하기</p>
+          <p className="my-2 mb-5">
+            구글, 카카오 아이디로{" "}
+            <span className="font-semibold">1초만에 로그인</span>하고 더 편하게
+            서비스를 이용해보세요.
+          </p>
+          <Link
+            href="/login"
+            className="rounded-lg bg-neutral-200 hover:bg-neutral-300 transition-colors px-3 p-2"
+          >
+            로그인 하러 가보기
+          </Link>
+        </div>
+        <div className="border-b-2 border-b-neutral-200 p-5">
+          <p className="font-semibold text-lg mb-2">사용 방법</p>
+          <ul className="list-decimal list-inside flex flex-col gap-2">
+            <li>입력창에 단축하고 싶은 URL을 복사해서 붙여넣습니다.</li>
+            <li>단축된 URL을 브라우저 주소창에 붙여넣습니다.</li>
+          </ul>
         </div>
         <div className="flex flex-col gap-3 p-5">
           <h2 className="font-semibold text-lg">

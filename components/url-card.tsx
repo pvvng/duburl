@@ -54,7 +54,7 @@ export default function UrlCard({
 
   const handleDelete = async () => {
     const result = confirm(
-      `URL 삭제시 관련된 모든 UTM이 삭제됩니다.\n${originalUrl} (${
+      `${originalUrl} (${
         nickname ? nickname : shortKey
       }) 을 정말 삭제하시겠습니까?`
     );
@@ -144,21 +144,21 @@ export default function UrlCard({
           ))}
         {nickname !== undefined && <div className="border-b-2 border-white" />}
         <div
-          className="group cursor-pointer p-2 px-3 truncate"
+          className="group cursor-pointer p-2 px-3 break-words"
           onClick={() => handleCopy(originalUrl)}
         >
-          <span className="font-medium">단축전: </span>
-          <span className="group-hover:text-neutral-500 transition-colors">
+          <span className="font-medium">전: </span>
+          <span className="group-hover:text-green-500 transition-colors">
             {originalUrl}
           </span>
         </div>
         <div className="border-b-2 border-white" />
         <div
-          className="group cursor-pointer p-2 px-3 truncate"
+          className="group cursor-pointer p-2 px-3 break-words"
           onClick={() => handleCopy(`${websiteUrl}/${shortKey}`)}
         >
-          <span className="font-medium">단축후: </span>
-          <span className="group-hover:text-neutral-500 transition-colors">
+          <span className="font-medium">후: </span>
+          <span className="group-hover:text-green-500 transition-colors">
             {websiteUrl}/{shortKey}
           </span>
         </div>
