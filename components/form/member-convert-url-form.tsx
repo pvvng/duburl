@@ -23,7 +23,7 @@ export default function MemberConvertUrlForm() {
         name="nickname"
         type="text"
         placeholder="단축할 URL의 별명을 적어주세요."
-        // maxLength={20}
+        maxLength={20}
         errors={state.fieldErrors.nickname}
       />
       <Input
