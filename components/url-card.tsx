@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteUrl, updateUrl } from "@/app/(member)/convert-url/actions";
+import { deleteUrl, updateUrl } from "@/app/(member)/home/actions";
 import { copyToClipboard } from "@/util/copy-to-clipboard";
 import {
   DocumentCheckIcon,
@@ -16,6 +16,7 @@ interface Props {
   urlId?: number;
   shortKey: string;
   originalUrl: string;
+  type: "member" | "guest";
 }
 
 export default function UrlCard({
@@ -23,6 +24,7 @@ export default function UrlCard({
   nickname,
   shortKey,
   originalUrl,
+  type,
 }: Props) {
   const [messageVisible, setMessageVisible] = useState<boolean>(false);
   const [editVisible, setEditVisible] = useState<boolean>(false);
@@ -54,9 +56,7 @@ export default function UrlCard({
 
   const handleDelete = async () => {
     const result = confirm(
-      `${originalUrl} (${
-        nickname ? nickname : "별명 없음"
-      }) 을 삭제하시겠습니까?`
+      `${nickname ? nickname : `별명없음(${shortKey})`} URL을 삭제하시겠습니까?`
     );
 
     if (result && urlId) {
@@ -88,14 +88,14 @@ export default function UrlCard({
       {messageVisible && (
         <div
           className="fixed bottom-1/2 left-1/2 animate-moveUp font-semibold
-        flex gap-2 bg-green-500 text-white p-3 px-5 rounded-xl text-center"
+        flex gap-2 bg-blue-500 text-white p-3 px-5 rounded-xl text-center"
         >
           <InformationCircleIcon className="size-6" />
           <p>복사 성공!</p>
         </div>
       )}
       <div className="flex flex-col rounded-xl bg-neutral-200 shadow-md">
-        {nickname !== undefined &&
+        {type === "member" &&
           (editVisible ? (
             <form
               action={handleUpdate}
@@ -128,9 +128,7 @@ export default function UrlCard({
             </form>
           ) : (
             <div className="p-2 px-3 flex justify-between items-center">
-              <p className="font-semibold">
-                {nickname ? nickname : "별명 없음"}
-              </p>
+              <p className="font-semibold">{nickname ? nickname : shortKey}</p>
               <div className="flex gap-2 *:size-5">
                 <button
                   aria-label="edit"
@@ -144,26 +142,28 @@ export default function UrlCard({
               </div>
             </div>
           ))}
-        {nickname !== undefined && <div className="border-b-2 border-white" />}
+        {type === "member" && <div className="border-b-2 border-white" />}
         <div
-          className="group cursor-pointer p-2 px-3 truncate"
-          onClick={() => handleCopy(originalUrl)}
-        >
-          <span className="font-medium">단축전: </span>
-          <span className="group-hover:text-neutral-500 transition-colors">
-            {originalUrl}
-          </span>
-        </div>
-        <div className="border-b-2 border-white" />
-        <div
-          className="group cursor-pointer p-2 px-3 truncate"
+          className="hover:text-blue-500 cursor-pointer p-2 px-3 break-words transition-colors"
           onClick={() => handleCopy(`${websiteUrl}/${shortKey}`)}
         >
-          <span className="font-medium">단축후: </span>
-          <span className="group-hover:text-neutral-500 transition-colors">
+          {type === "guest" && <span className="font-semibold">단축후: </span>}
+          <span>
             {websiteUrl}/{shortKey}
           </span>
         </div>
+        {type === "guest" && (
+          <>
+            <div className="border-b-2 border-white" />
+            <div
+              className="hover:text-blue-500 cursor-pointer p-2 px-3 break-words transition-colors"
+              onClick={() => handleCopy(originalUrl)}
+            >
+              <span className="font-semibold">단축전: </span>
+              <span>{originalUrl}</span>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
