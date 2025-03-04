@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteUrl, updateUrl } from "@/app/(member)/convert-url/actions";
+import { deleteUrl, updateUrl } from "@/app/(member)/home/actions";
 import { copyToClipboard } from "@/util/copy-to-clipboard";
 import {
   DocumentCheckIcon,

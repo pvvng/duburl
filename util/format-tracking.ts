@@ -1,11 +1,15 @@
 type Tracking = {
   id: number;
+  createdAt: Date;
+  updatedAt: Date;
   ip: string;
   language: string;
   platform: string;
   os: string;
   browser: string;
+  browserVersion: string;
   device: string;
+  utmId: number;
 }[];
 
 export type ChartData = {
@@ -14,37 +18,26 @@ export type ChartData = {
 }[];
 
 export function getFormattedTracking(tracking: Tracking) {
-  // init map
-  const browser: Map<string, number> = new Map();
-  const device: Map<string, number> = new Map();
-  const platform: Map<string, number> = new Map();
-  const language: Map<string, number> = new Map();
-  const os: Map<string, number> = new Map();
-
-  tracking.forEach((v) => {
-    browser.set(v.browser, (browser.get(v.browser) || 0) + 1);
-    device.set(v.device, (browser.get(v.device) || 0) + 1);
-    platform.set(v.platform, (browser.get(v.platform) || 0) + 1);
-    language.set(v.language, (browser.get(v.language) || 0) + 1);
-    os.set(v.os, (browser.get(v.os) || 0) + 1);
-  });
-
-  // Map을 객체 배열로 변환
-  const formatMapToArray = (map: Map<string, number>) => {
+  // 공통 로직을 처리하는 함수
+  const getAggregatedData = (key: keyof Tracking[0]) => {
+    const map = new Map<string, number>();
+    tracking.forEach((v) => {
+      const value = v[key];
+      const keyString =
+        value instanceof Date
+          ? value.toISOString().split("T")[0]
+          : String(value);
+      map.set(keyString, (map.get(keyString) || 0) + 1);
+    });
     return Array.from(map, ([name, value]) => ({ name, value }));
   };
 
-  const browserData = formatMapToArray(browser);
-  const deviceData = formatMapToArray(device);
-  const platformData = formatMapToArray(platform);
-  const languageData = formatMapToArray(language);
-  const osData = formatMapToArray(os);
-
   return {
-    browserData,
-    deviceData,
-    platformData,
-    languageData,
-    osData,
+    browserData: getAggregatedData("browser"),
+    deviceData: getAggregatedData("device"),
+    platformData: getAggregatedData("platform"),
+    languageData: getAggregatedData("language"),
+    osData: getAggregatedData("os"),
+    traffic: getAggregatedData("createdAt"),
   };
 }

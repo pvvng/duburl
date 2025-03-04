@@ -8,7 +8,7 @@ import { getLocalURLs, setLocalURLs } from "@/util/local-urls/local-urls";
 import { getUniqueKeys } from "@/util/local-urls/get-unique-keys";
 import { useActionState, useEffect, useState } from "react";
 import { formDeafultValue } from "@/lib/create-result-object";
-import UrlCard from "./url-card";
+import UrlCard from "../url-card";
 
 export default function GuestConvertUrlForm() {
   const [actionResult, action] = useActionState(convertUrl, formDeafultValue);

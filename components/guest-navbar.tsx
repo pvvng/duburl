@@ -4,7 +4,7 @@ export default function GuestNavbar() {
   return (
     <div className="w-full p-5 xl:px-16 flex justify-between items-center gap-2 shadow-md rounded-b-xl">
       <Link href="/" className="text-3xl font-anton uppercase">
-        we : rl
+        werl
       </Link>
       <Link
         href="/login"
