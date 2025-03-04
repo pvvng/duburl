@@ -56,11 +56,24 @@ export default async function Profile() {
           </div>
           <div>
             <p className="text-sm text-gray-600">연동된 SNS</p>
-            <p>
+            <div className="rounded-full relative size-6 overflow-hidden mt-2">
               {user.kakao_id && (
-                <span className="text-yellow-500 text-xl">카카오톡</span>
+                <Image
+                  src="kakao-icon.svg"
+                  alt="카카오톡"
+                  fill
+                  className="object-cover"
+                />
               )}
-            </p>
+              {user.google_id && (
+                <Image
+                  src="google-icon.svg"
+                  alt="구글"
+                  fill
+                  className="object-cover"
+                />
+              )}
+            </div>
           </div>
           <form action={logout}>
             <button

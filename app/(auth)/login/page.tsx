@@ -29,7 +29,7 @@ export default function Login() {
           <div />
         </a>
         <a
-          href="/kakao/start"
+          href="/google/start"
           className="border border-neutral-300  bg-transparent flex justify-between items-center 
           rounded-lg p-3 hover:scale-95 transition-transform font-medium"
         >

@@ -14,6 +14,7 @@ async function getUser(userId: number) {
       avatar: true,
       email: true,
       kakao_id: true,
+      google_id: true,
     },
   });
 
