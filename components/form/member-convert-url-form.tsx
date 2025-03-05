@@ -6,6 +6,7 @@ import Input from "../form-input";
 import { memberConvertUrl } from "@/app/(member)/home/actions";
 import { formDeafultValue } from "@/lib/create-result-object";
 import { ScissorsIcon } from "@heroicons/react/24/outline";
+import { handleFocus } from "@/util/input-hadle-focus";
 
 export default function MemberConvertUrlForm() {
   const [state, action] = useActionState(memberConvertUrl, formDeafultValue);
@@ -24,6 +25,7 @@ export default function MemberConvertUrlForm() {
         type="text"
         placeholder="단축할 URL의 별명을 적어주세요."
         maxLength={20}
+        onFocus={handleFocus}
         errors={state.fieldErrors.nickname}
       />
       <Input
@@ -31,6 +33,7 @@ export default function MemberConvertUrlForm() {
         type="url"
         placeholder="단축할 URL을 입력하세요."
         required
+        onFocus={handleFocus}
         errors={state.fieldErrors.url}
       />
       <Button text="변환하기" />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Button from "../form-button";
 import Input from "../form-input";
 import { useRouter } from "next/navigation";
+import { handleFocus } from "@/util/input-hadle-focus";
 
 export function SearchForm({ search }: { search: string }) {
   const [searchState, setSearchState] = useState(search);
@@ -32,6 +33,7 @@ export function SearchForm({ search }: { search: string }) {
           placeholder="별명으로 검색하기"
           value={searchState}
           onChange={(e) => setSearchState(e.target.value)}
+          onFocus={handleFocus}
         />
       </div>
       <div className="w-1/4">

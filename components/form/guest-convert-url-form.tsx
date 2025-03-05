@@ -10,6 +10,7 @@ import { useActionState, useEffect, useState } from "react";
 import { formDeafultValue } from "@/lib/create-result-object";
 import UrlCard from "../url-card";
 import Link from "next/link";
+import { handleFocus } from "@/util/input-hadle-focus";
 
 export default function GuestConvertUrlForm() {
   const [actionResult, action] = useActionState(convertUrl, formDeafultValue);
@@ -45,6 +46,7 @@ export default function GuestConvertUrlForm() {
           type="url"
           placeholder="단축할 URL을 입력하세요."
           required
+          onFocus={handleFocus}
           errors={!actionResult.success ? actionResult.formErrors : []}
         />
         <Button text="URL 단축하기" />
@@ -52,17 +54,26 @@ export default function GuestConvertUrlForm() {
       <div className="border-2 shadow-md border-neutral-200 rounded-xl">
         <div className="border-b-2 border-b-neutral-200 p-5">
           <p className="font-semibold text-lg">로그인하고 더 편하게 사용하기</p>
-          <p className="my-2 mb-5">
+          <p className="my-2">
             구글, 카카오 아이디로{" "}
             <span className="font-semibold">1초만에 로그인</span>하고 더 편하게
-            서비스를 이용해보세요.
+            서비스를 이용해보세요!
           </p>
+          <hr />
+          <div className="mb-5 flex flex-col gap-2 mt-2">
+            <p className="font-semibold text-lg">간편 로그인 혜택</p>
+            <ul className="list-decimal list-inside flex flex-col gap-1">
+              <li>개수 제한 없이 URL 변경하고 저장하기</li>
+              <li>변경한 URL 별명으로 저장하기</li>
+              <li>별명으로 저장한 URL 검색하기</li>
+            </ul>
+          </div>
           <Link
             href="/login"
             className="rounded-lg border border-blue-600 text-blue-600 transition-colors px-3 p-2
             hover:border-blue-500 hover:bg-blue-500 hover:text-white font-semibold"
           >
-            로그인 하러 가보기
+            로그인 페이지로 이동하기
           </Link>
         </div>
         <div className="border-b-2 border-b-neutral-200 p-5">
