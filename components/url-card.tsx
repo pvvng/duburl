@@ -56,7 +56,9 @@ export default function UrlCard({
 
   const handleDelete = async () => {
     const result = confirm(
-      `${nickname ? nickname : `별명없음(${shortKey})`} URL을 삭제하시겠습니까?`
+      `'${
+        nickname ? nickname : `별명없음(${shortKey})`
+      }' URL을 삭제하시겠습니까?`
     );
 
     if (result && urlId) {

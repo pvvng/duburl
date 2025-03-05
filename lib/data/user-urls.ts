@@ -1,14 +1,22 @@
-import { unstable_cache } from "next/cache";
+import { unstable_cache as nextCache } from "next/cache";
 import db from "../db";
 import { Prisma } from "@prisma/client";
 
-export const getCachedUserUrls = unstable_cache(getUserUrls, ["user-urls"], {
-  tags: ["user-urls"],
-});
+export const getCachedUserUrls = (userId: number, search: string) => {
+  const cachedOperation = nextCache(getUserUrls, ["user-urls"], {
+    tags: ["user-urls"],
+  });
+  return cachedOperation(userId, search);
+};
 
-export async function getUserUrls(userId: number) {
+export async function getUserUrls(userId: number, search: string) {
   const urls = await db.userUrl.findMany({
-    where: { userId },
+    where: {
+      userId,
+      nickname: {
+        contains: search,
+      },
+    },
     include: {
       url: {
         select: {

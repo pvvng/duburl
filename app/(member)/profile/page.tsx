@@ -8,7 +8,13 @@ import { UserUrlsLoading } from "@/components/member-urls-loading";
 import { getCachedUser } from "@/lib/data/user";
 import { revalidateTag } from "next/cache";
 
-export default async function Profile() {
+interface PageProps {
+  searchParams: Promise<{ search?: string }>;
+}
+
+export default async function Profile({ searchParams }: PageProps) {
+  const search = (await searchParams).search || "";
+
   const session = await getSession();
 
   if (!session || !session.id) notFound();
@@ -88,7 +94,7 @@ export default async function Profile() {
       </div>
       <div className="md:w-2/3">
         <Suspense fallback={<UserUrlsLoading />}>
-          <UserUrls />
+          <UserUrls search={search} />
         </Suspense>
       </div>
     </div>
