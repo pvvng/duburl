@@ -1,10 +1,6 @@
-export default function Loading() {
-  return <div className="p-5 px-16">로딩 중..</div>;
-}
-
 export function UserUrlsLoading() {
   return (
-    <div className="flex flex-col gap-3 white-card animate-pulse">
+    <div className="flex flex-col gap-3 white-card animate-pulse animate-fade-in">
       <div className="flex gap-2 items-center *:rounded-xl">
         <div className="size-7 bg-neutral-300" />
         <div className="w-24 h-7 bg-neutral-300" />

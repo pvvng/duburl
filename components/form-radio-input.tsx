@@ -10,8 +10,9 @@ interface InputProps {
     text: string;
   }[];
   useExtra?: boolean;
-  errors?: string[];
   extraPlaceholder?: string;
+  extraType?: string;
+  errors?: string[];
 }
 
 export default function RadioInputs({
@@ -20,6 +21,7 @@ export default function RadioInputs({
   errors = [],
   useExtra = false,
   extraPlaceholder,
+  extraType = "text",
   ...rest
 }: InputProps & InputHTMLAttributes<HTMLInputElement>) {
   const [disabled, setDisabled] = useState(false);
@@ -43,7 +45,7 @@ export default function RadioInputs({
   };
 
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 text-center">
+    <div className="grid md:grid-cols-3 grid-cols-2 gap-3 text-center">
       {values.map(({ value, text }) => (
         <label
           key={value + text}
@@ -65,11 +67,12 @@ export default function RadioInputs({
         </label>
       ))}
       {useExtra && (
-        <div className="relative">
+        <div className="relative col-span-full">
           <input
             name={name}
             placeholder={extraPlaceholder}
             value={extra}
+            type={extraType}
             onChange={handleExtraChange}
             className="w-full h-10 border-none rounded-xl focus:outline-none 
             placeholder:text-neutral-400 ring-2 ring-neutral-200 focus:ring-4 focus:ring-green-500"
