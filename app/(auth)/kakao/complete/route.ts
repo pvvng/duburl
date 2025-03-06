@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     error,
     access_token,
     // jwt token -> https://developers.kakao.com/docs/latest/ko/kakaologin/utilize#oidc-id-token
-    id_token,
+    // id_token,
   } = await getAccessToken(code);
 
   // 에러 처리 (bad requset)
