@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import getSession from "./lib/session";
-import { cookies } from "next/headers";
 
-const publicOnlyURL = new Set([
+const privateURL = new Set(["/home", "/profile"]);
+const publicURL = new Set([
   "/",
   "/login",
   "/kakao/start",
@@ -12,17 +12,14 @@ const publicOnlyURL = new Set([
 ]);
 
 export async function middleware(req: NextRequest) {
-  const isPublicPath = publicOnlyURL.has(req.nextUrl.pathname);
+  const isPrivatePath = privateURL.has(req.nextUrl.pathname);
+  const isPublicPath = publicURL.has(req.nextUrl.pathname);
   const isLoggedIn = Boolean((await getSession()).id);
 
-  // 로그아웃 상태
-  // private page 이동 시도
-  if (!isLoggedIn && !isPublicPath) {
+  if (!isLoggedIn && isPrivatePath) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  // 로그인 상태
-  // public page 이동 시도
   if (isLoggedIn && isPublicPath) {
     return NextResponse.redirect(new URL("/home", req.url));
   }
