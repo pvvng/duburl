@@ -11,7 +11,7 @@ interface SessionContent {
  */
 export default async function getSession() {
   return await getIronSession<SessionContent>(await cookies(), {
-    cookieName: "werl",
+    cookieName: "duburl",
     password: process.env.COOKIE_PASSWORD!,
   });
 }

@@ -2,10 +2,15 @@ import MemberConvertUrlForm from "@/components/form/member-convert-url-form";
 import { Suspense } from "react";
 import { UserUrls } from "@/components/member-urls";
 import { UserUrlsLoading } from "@/components/member-urls-loading";
+import { Metadata } from "next";
 
 interface PageProps {
   searchParams: Promise<{ search?: string }>;
 }
+
+export const metadata: Metadata = {
+  title: "홈",
+};
 
 export default async function Home({ searchParams }: PageProps) {
   const search = (await searchParams).search || "";

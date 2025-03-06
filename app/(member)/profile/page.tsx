@@ -7,10 +7,15 @@ import { UserUrls } from "@/components/member-urls";
 import { UserUrlsLoading } from "@/components/member-urls-loading";
 import { getCachedUser } from "@/lib/data/user";
 import { revalidateTag } from "next/cache";
+import { Metadata } from "next";
 
 interface PageProps {
   searchParams: Promise<{ search?: string }>;
 }
+
+export const metadata: Metadata = {
+  title: "마이페이지",
+};
 
 export default async function Profile({ searchParams }: PageProps) {
   const search = (await searchParams).search || "";
