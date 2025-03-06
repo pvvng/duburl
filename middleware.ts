@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import getSession from "./lib/session";
+import { cookies } from "next/headers";
 
 const publicOnlyURL = new Set([
   "/",
   "/login",
   "/kakao/start",
   "/kakao/complete",
+  "/google/start",
+  "/google/complete",
 ]);
 
 export async function middleware(req: NextRequest) {

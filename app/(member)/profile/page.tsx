@@ -34,8 +34,11 @@ export default async function Profile({ searchParams }: PageProps) {
   return (
     <div className="p-5 xl:p-16 flex md:flex-row flex-col gap-5">
       <div className="md:w-1/3">
-        <div className="white-card">
-          <div className="size-32 border-2 border-white rounded-full overflow-hidden relative white-card mx-auto">
+        <div className="white-card dark:dark-card">
+          <div
+            className="size-32 border-2 border-white rounded-full overflow-hidden relative mx-auto
+           dark:border-neutral-400 dark:bg-neutral-400 bg-neutral-200"
+          >
             {user.avatar ? (
               <Image
                 src={user.avatar}
@@ -46,7 +49,7 @@ export default async function Profile({ searchParams }: PageProps) {
                 className="object-cover"
               />
             ) : (
-              <UserIcon />
+              <UserIcon className="text-white" />
             )}
           </div>
           <div className="flex flex-col gap-3">

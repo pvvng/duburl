@@ -96,7 +96,10 @@ export default function UrlCard({
           <p>복사 성공!</p>
         </div>
       )}
-      <div className="flex flex-col rounded-xl bg-neutral-200 shadow-md">
+      <div
+        className="flex flex-col rounded-xl bg-neutral-200 shadow-md
+        dark:bg-transparent dark:border dark:border-neutral-400"
+      >
         {type === "member" &&
           (editVisible ? (
             <form
@@ -110,7 +113,7 @@ export default function UrlCard({
                 ref={nicknameRef}
                 maxLength={20}
                 className="h-6 border-none rounded-xl focus:outline-none placeholder:text-neutral-400 
-                ring-1 ring-neutral-200 focus:ring-2 focus:ring-neutral-400"
+                ring-1 ring-neutral-200 focus:ring-2 focus:ring-neutral-400 dark:bg-transparent dark:rounded-md"
               />
               <div className="flex gap-2 *:size-5">
                 <button
@@ -144,7 +147,9 @@ export default function UrlCard({
               </div>
             </div>
           ))}
-        {type === "member" && <div className="border-b-2 border-white" />}
+        {type === "member" && (
+          <div className="border-b-2 border-white dark:border-neutral-400" />
+        )}
         <div
           className="hover:text-blue-500 cursor-pointer p-2 px-3 break-words transition-colors"
           onClick={() => handleCopy(`${websiteUrl}/${shortKey}`)}
@@ -156,7 +161,7 @@ export default function UrlCard({
         </div>
         {type === "guest" && (
           <>
-            <div className="border-b-2 border-white" />
+            <div className="border-b-2 border-white dark:border-neutral-400" />
             <div
               className="hover:text-blue-500 cursor-pointer p-2 px-3 break-words transition-colors"
               onClick={() => handleCopy(originalUrl)}

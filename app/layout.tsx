@@ -24,7 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${anton.variable} antialiased`}>{children}</body>
+      <body
+        className={`${anton.variable} antialiased dark:bg-neutral-900 dark:text-neutral-300`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

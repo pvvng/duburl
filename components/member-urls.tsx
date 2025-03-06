@@ -16,7 +16,7 @@ export async function UserUrls({ search }: { search: string }) {
   const urls = await getCachedUserUrls(session.id, search);
 
   return (
-    <div className="flex flex-col gap-5 white-card">
+    <div className="flex flex-col gap-5 white-card dark:dark-card">
       <div className="text-xl font-semibold flex gap-2 items-center">
         <LinkIcon className="size-6" />
         <span>내 URL</span>
