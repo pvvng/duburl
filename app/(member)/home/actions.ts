@@ -64,6 +64,7 @@ export async function memberConvertUrl(_: any, formData: FormData) {
     });
   }
 
+  // 새로운 url 튜플 생성
   let shortKey: string;
   let isUnique = false;
   do {
@@ -103,6 +104,8 @@ export async function memberConvertUrl(_: any, formData: FormData) {
     select: { nickname: true },
   });
 
+  // 새롭게 생성되는 경우에만 url 캐시 revalidate
+  revalidateTag("urls");
   revalidateTag("user-urls");
 
   return createActionResult({
