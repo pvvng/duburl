@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
 
   const url = await getCachedUrl(shortKey);
 
+  // console.log(url);
   if (!url) {
     return new Response(null, { status: 404 });
   }
