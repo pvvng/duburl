@@ -4,8 +4,8 @@ import {
   URL_ERROR_MESSAGES,
 } from "../errorMessages/url";
 import validator from "validator";
+import { SITE_NAME } from "@/util/constants/sitename";
 
-const SITE_NAME = "duburl.site";
 const trimUrl = (url: string) => (url.endsWith("/") ? url.slice(0, -1) : url);
 
 export const urlSchema = z
