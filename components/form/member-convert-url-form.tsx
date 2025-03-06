@@ -14,7 +14,7 @@ export default function MemberConvertUrlForm() {
   return (
     <form
       action={action}
-      className="flex flex-col justify-center gap-3 white-card"
+      className="flex flex-col justify-center gap-3 white-card dark:dark-card"
     >
       <div className="text-xl font-semibold flex gap-2 items-center">
         <ScissorsIcon className="size-6" />

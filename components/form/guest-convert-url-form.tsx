@@ -51,15 +51,15 @@ export default function GuestConvertUrlForm() {
         />
         <Button text="URL 단축하기" />
       </form>
-      <div className="border-2 shadow-md border-neutral-200 rounded-xl">
-        <div className="border-b-2 border-b-neutral-200 p-5">
+      <div className="border-2 shadow-md border-neutral-200 rounded-xl dark:border-neutral-400">
+        <div className="border-b-2 border-b-neutral-200 dark:border-b-neutral-400 p-5">
           <p className="font-semibold text-lg">로그인하고 더 편하게 사용하기</p>
           <p className="my-2">
             구글, 카카오 아이디로{" "}
             <span className="font-semibold">1초만에 로그인</span>하고 더 편하게
             서비스를 이용해보세요!
           </p>
-          <hr />
+          <hr className="dark:border-neutral-400" />
           <div className="mb-5 flex flex-col gap-2 mt-2">
             <p className="font-semibold text-lg">간편 로그인 혜택</p>
             <ul className="list-decimal list-inside flex flex-col gap-1">
@@ -76,7 +76,7 @@ export default function GuestConvertUrlForm() {
             로그인 페이지로 이동하기
           </Link>
         </div>
-        <div className="border-b-2 border-b-neutral-200 p-5">
+        <div className="border-b-2 border-b-neutral-200 p-5 dark:border-b-neutral-400">
           <p className="font-semibold text-lg mb-2">사용 방법</p>
           <ul className="list-decimal list-inside flex flex-col gap-2">
             <li>입력창에 단축하고 싶은 URL을 복사해서 붙여넣습니다.</li>

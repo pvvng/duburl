@@ -16,7 +16,7 @@ export default function Login() {
         <a
           href="/kakao/start"
           className="border border-[#FEE500] bg-[#FEE500] flex justify-between items-center 
-          rounded-lg p-3 hover:scale-95 transition-transform font-medium"
+          rounded-lg p-3 hover:scale-95 transition-transform font-medium text-black"
         >
           <Image
             src="/kakao-icon.svg"
