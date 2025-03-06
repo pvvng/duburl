@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteUrl, updateUrl } from "@/app/(member)/home/actions";
+import { SITE_NAME } from "@/util/constants/sitename";
 import { copyToClipboard } from "@/util/copy-to-clipboard";
 import {
   DocumentCheckIcon,
@@ -28,14 +29,8 @@ export default function UrlCard({
 }: Props) {
   const [messageVisible, setMessageVisible] = useState<boolean>(false);
   const [editVisible, setEditVisible] = useState<boolean>(false);
-  const [websiteUrl, setWebsiteUrl] = useState<string>("");
   const nicknameRef = useRef<HTMLInputElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    const currentUrl = window.location.origin;
-    setWebsiteUrl(currentUrl);
-  }, []);
 
   const handleCopy = async (text: string) => {
     const result = await copyToClipboard(text);
@@ -152,11 +147,11 @@ export default function UrlCard({
         )}
         <div
           className="hover:text-blue-500 cursor-pointer p-2 px-3 break-words transition-colors"
-          onClick={() => handleCopy(`${websiteUrl}/${shortKey}`)}
+          onClick={() => handleCopy(`${SITE_NAME}/${shortKey}`)}
         >
           {type === "guest" && <span className="font-semibold">단축후: </span>}
           <span>
-            {websiteUrl}/{shortKey}
+            {SITE_NAME}/{shortKey}
           </span>
         </div>
         {type === "guest" && (
