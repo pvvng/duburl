@@ -5,7 +5,7 @@ export async function GET() {
   const params = {
     client_id: process.env.KAKAO_REST_API_KEY!,
     response_type: "code",
-    redirect_uri: "http://localhost:3000/kakao/complete",
+    redirect_uri: process.env.APP_URL + "/kakao/complete",
   };
 
   const formattedParams = new URLSearchParams(params).toString();

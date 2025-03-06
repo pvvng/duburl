@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     error,
     access_token,
     // jwt token -> https://developers.kakao.com/docs/latest/ko/kakaologin/utilize#oidc-id-token
-    id_token,
+    // id_token,
   } = await getAccessToken(code);
 
   // 에러 처리 (bad requset)
@@ -109,7 +109,7 @@ function createAccessTokenParams(code: string) {
   return new URLSearchParams({
     grant_type: "authorization_code",
     client_id: process.env.KAKAO_REST_API_KEY!,
-    redirect_uri: "http://localhost:3000/kakao/complete",
+    redirect_uri: process.env.APP_URL + "/kakao/complete",
     code,
     client_secret: process.env.KAKAO_CLIENT_SECRET!,
   }).toString();
