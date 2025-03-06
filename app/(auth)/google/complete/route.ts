@@ -105,7 +105,7 @@ function createAccessTokenParams(code: string) {
   return new URLSearchParams({
     grant_type: "authorization_code",
     client_id: process.env.GOOGLE_CLIENT_ID!,
-    redirect_uri: "http://localhost:3000/google/complete",
+    redirect_uri: process.env.APP_URL + "/google/complete",
     code,
     client_secret: process.env.GOOGLE_CLIENT_SECRET!,
   }).toString();
