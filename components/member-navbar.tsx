@@ -14,7 +14,7 @@ export default async function MemeberNavbar() {
     >
       <div className="flex gap-8 items-center *:font-bold *:text-md">
         <Link href="/home" className="text-3xl font-anton uppercase">
-          werl
+          duburl
         </Link>
       </div>
       <Suspense fallback={<AvatarLoading />}>

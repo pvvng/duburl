@@ -9,7 +9,7 @@ export default function Login() {
   return (
     <div className="max-w-screen-sm h-screen p-5 flex flex-col gap-5 justify-center items-center mx-auto">
       <div className="flex flex-col text-center">
-        <h1 className="text-[100px] font-anton uppercase">we rl</h1>
+        <h1 className="text-[100px] font-anton uppercase">duburl</h1>
         <h2 className="font-medium">긴 URL 단축하는 웹사이트</h2>
       </div>
       <div className="*:w-52 *:h-12 flex flex-col gap-3 mt-5">

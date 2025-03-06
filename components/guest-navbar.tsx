@@ -7,7 +7,7 @@ export default function GuestNavbar() {
     dark:bg-transparent dark:border-b-2 dark:border-neutral-400"
     >
       <Link href="/" className="text-3xl font-anton uppercase">
-        werl
+        duburl
       </Link>
       <Link
         href="/login"
