@@ -2,6 +2,7 @@ export const URL_ERROR_MESSAGES = {
   REQUIRED: "필수 입력 항목입니다.",
   INVALID_TYPE: "올바른 타입이 아닙니다.",
   INVALID_URL: "올바른 URL 형식이 아닙니다.",
+  CIRCULAR_CONVERT: "이미 축약된 URL 주소입니다.",
 } as const;
 
 export const NICKNAME_ERROR_MESSAGES = {

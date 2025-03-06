@@ -5,6 +5,7 @@ import {
 } from "../errorMessages/url";
 import validator from "validator";
 
+const SITE_NAME = "duburl.site";
 const trimUrl = (url: string) => (url.endsWith("/") ? url.slice(0, -1) : url);
 
 export const urlSchema = z
@@ -14,7 +15,11 @@ export const urlSchema = z
   })
   .trim()
   .transform(trimUrl)
-  .refine((url) => validator.isURL(url), URL_ERROR_MESSAGES.INVALID_URL);
+  .refine((url) => validator.isURL(url), URL_ERROR_MESSAGES.INVALID_URL)
+  .refine(
+    (url) => !url.includes(SITE_NAME),
+    URL_ERROR_MESSAGES.CIRCULAR_CONVERT
+  );
 
 export const nicknameScehma = z
   .string({
