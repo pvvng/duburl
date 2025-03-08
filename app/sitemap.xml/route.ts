@@ -9,32 +9,32 @@ export async function GET() {
   const dynamicPaths = [, "/home", "/profile"];
 
   // 현재 시간 기준으로 Last Modified 날짜 설정
-  const lastModified = new Date().toISOString();
+  const lastModified = new Date().toISOString().split("T")[0];
 
   // 사이트맵 XML 생성
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>${BASE_URL}</loc>
-    <lastmod>${lastModified}</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${BASE_URL}/home</loc>
-    <lastmod>${lastModified}/home</lastmod>
-    <priority>1.0</priority>  
-  </url>
-  <url>
-    <loc>${BASE_URL}/profile</loc>
-    <lastmod>${lastModified}</lastmod>
-    <priority>0.8</priority> 
-  </url>
-  <url>
-    <loc>${BASE_URL}/login</loc>
-    <lastmod>${lastModified}</lastmod>
-    <priority>0.5</priority>
-  </url>
-</urlset>`;
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+      <loc>${BASE_URL}</loc>
+      <lastmod>${lastModified}</lastmod>
+      <priority>1.0</priority>
+    </url>
+    <url>
+      <loc>${BASE_URL}/home</loc>
+      <lastmod>${lastModified}/home</lastmod>
+      <priority>1.0</priority>  
+    </url>
+    <url>
+      <loc>${BASE_URL}/profile</loc>
+      <lastmod>${lastModified}</lastmod>
+      <priority>0.8</priority> 
+    </url>
+    <url>
+      <loc>${BASE_URL}/login</loc>
+      <lastmod>${lastModified}</lastmod>
+      <priority>0.5</priority>
+    </url>
+  </urlset>`;
 
   return new NextResponse(sitemap, {
     headers: {
