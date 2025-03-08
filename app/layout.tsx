@@ -26,18 +26,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-YBC8SJE8NR"
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
+      <head>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-YBC8SJE8NR"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-YBC8SJE8NR');
-          `}
-      </Script>
+          `,
+          }}
+        />
+      </head>
       <body
         className={`${anton.variable} antialiased dark:bg-neutral-900 dark:text-neutral-300`}
       >
