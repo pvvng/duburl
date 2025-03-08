@@ -27,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="google-adsense-account" content="ca-pub-7034464923554278" />
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-YBC8SJE8NR"
