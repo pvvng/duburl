@@ -16,13 +16,13 @@ export async function middleware(req: NextRequest) {
   const isPublicPath = publicURL.has(req.nextUrl.pathname);
   const isLoggedIn = Boolean((await getSession()).id);
 
-  if (!isLoggedIn && isPrivatePath) {
-    return NextResponse.redirect(new URL("/", req.url));
-  }
+  // if (!isLoggedIn && isPrivatePath) {
+  //   return NextResponse.redirect(new URL("/", req.url));
+  // }
 
-  if (isLoggedIn && isPublicPath) {
-    return NextResponse.redirect(new URL("/home", req.url));
-  }
+  // if (isLoggedIn && isPublicPath) {
+  //   return NextResponse.redirect(new URL("/home", req.url));
+  // }
 }
 
 export const config = {
