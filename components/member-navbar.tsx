@@ -60,8 +60,8 @@ async function UserAvatar() {
 
 function AvatarLoading() {
   return (
-    <div className="size-10 border-2 border-white dark:border-neutral-400 rounded-full overflow-hidden relative bg-white">
-      <UserIcon />
+    <div className="size-10 border-2 border-white bg-neutral-200 dark:border-neutral-400 rounded-full overflow-hidden relative">
+      <UserIcon className="text-white" />
     </div>
   );
 }
