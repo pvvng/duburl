@@ -1,5 +1,5 @@
 # DUBURL
-긴 url 단축 웹서비스 
+긴 URL 단축 웹서비스 
 
 ## 1. 웹사이트
 [바로가기](https://www.duburl.site/)
@@ -28,9 +28,11 @@
 - 긴 URL을 입력하면 6자리의 영어, 숫자, 특수문자로 구성된 `짧은 키`가 생성.
 - 해당 키를 이용해 `duburl.site/[짧은키]`로 접속하면 원래의 긴 URL로 자동 리디렉션.
 - 예시: `https://long-long-website-url-link.com <-> duburl.site/abc123`
+- 로그인한 사용자는 변환한 URL에 자신만의 별명 부여 및 수정, 삭제 가능.
+- 게스트 사용자는 localstorage에 게스트가 변환한 URL 10개를 임시 저장.
 
 ## 4. 기타 구현 방식
 
-- zod, validator를 이용하여 변환할 url, url 별명 등 검증
+- zod, validator를 이용하여 변환할 URL, URL 별명 등 검증
 - iron-session을 이용하여 http-only 쿠키로 사용자 세션 관리
 - OAuth2를 이용하여 kakao, google 소셜 로그인
