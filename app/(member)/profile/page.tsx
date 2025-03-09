@@ -22,9 +22,7 @@ export default async function Profile({ searchParams }: PageProps) {
 
   const session = await getSession();
 
-  if (!session || !session.id) notFound();
-
-  const user = await getCachedUser(session.id);
+  const user = await getCachedUser(session.id!);
 
   if (!user) notFound();
 

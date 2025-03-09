@@ -3,6 +3,7 @@ import "./globals.css";
 import { Anton } from "next/font/google";
 import Script from "next/script";
 import Analytics from "@/components/google-analytics";
+import Footer from "@/components/footer";
 
 const anton = Anton({
   weight: "400",
@@ -37,22 +38,13 @@ export default function RootLayout({
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-YBC8SJE8NR"
         ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-YBC8SJE8NR');
-          `,
-          }}
-        />
       </head>
       <body
         className={`${anton.variable} antialiased dark:bg-neutral-900 dark:text-neutral-300`}
       >
         <Analytics />
         {children}
+        <Footer />
       </body>
     </html>
   );

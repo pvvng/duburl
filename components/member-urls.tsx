@@ -8,12 +8,8 @@ import { SearchForm } from "./form/search-form";
 export async function UserUrls({ search }: { search: string }) {
   const session = await getSession();
 
-  if (!session || !session.id) {
-    return redirect("/");
-  }
-
   // searchParams로 검색어 포항해서 검색하기
-  const urls = await getCachedUserUrls(session.id, search);
+  const urls = await getCachedUserUrls(session.id!, search);
 
   return (
     <div className="flex flex-col gap-5 white-card dark:dark-card">
