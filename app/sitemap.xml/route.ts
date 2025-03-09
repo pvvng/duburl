@@ -30,6 +30,11 @@ export async function GET() {
       <priority>0.8</priority> 
     </url>
     <url>
+      <loc>${BASE_URL}/privacy-policy</loc>
+      <lastmod>${lastModified}</lastmod>
+      <priority>0.6</priority>
+    </url>
+    <url>
       <loc>${BASE_URL}/login</loc>
       <lastmod>${lastModified}</lastmod>
       <priority>0.5</priority>
