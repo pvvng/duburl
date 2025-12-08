@@ -13,7 +13,7 @@
     "@prisma/client": "^6.4.1",
     "iron-session": "^8.0.4",
     "nanoid": "^5.1.2",
-    "next": "15.1.7",
+    "next": "15.1.9",
     "prisma": "^6.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
